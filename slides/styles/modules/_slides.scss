@@ -1,0 +1,126 @@
+
+// Typography
+
+.remark-slide-content {
+    @extend .skin-color-white;
+
+    h1 {
+        @include font-in-rems(4.8);
+        @include line-height-in-rems(6.5);
+
+        a {
+            color: $color-yellow;
+        }
+    }
+
+    h2 {
+        @include font-in-rems(2.1);
+        @include line-height-in-rems(2.9);
+        color: $color-yellow;
+        font-family: $font-f-medium;
+    }
+}
+
+// Layout
+
+.footnote {
+    position: absolute;
+    bottom: 3em;
+    bottom: 3rem;
+}
+
+// Skin
+
+.remark-slide-content.small-code {
+    .remark-code {
+        @include font-in-rems(1.5);
+        @include line-height-in-rems(1.6);
+    }
+}
+.remark-slide-content.s-inverse {
+    @extend .skin-color-green;
+
+    h1 {
+        color: $color-white;
+    }
+
+    p {
+        color: $color-white;
+    }
+}
+
+.highlight {
+    color: $color-yellow;
+}
+
+th, td {
+    border-right: 1px solid $color-mid-light-gray;
+    border-top: 1px solid $color-mid-light-gray;
+}
+
+th {
+    width: 33%;
+    // text-align: left;
+}
+
+td {
+    text-align: center;
+}
+table {
+    border-left: 1px solid $color-mid-light-gray;
+    border-bottom: 1px solid $color-mid-light-gray;
+    width: 100%
+}
+
+
+
+
+.remark-slide-container {
+    // -webkit-transition: -webkit-transform 1s linear;
+    // -webkit-transform: translateX(0%);
+}
+
+.remark-visible {
+    // -webkit-transition: -webkit-transform 1s linear;
+    // -webkit-transform: translateX(-80%);
+    // -webkit-animation-name: animateSlide;
+    // -webkit-animation-timing-function: ease-in;
+    // // -webkit-animation-iteration-count: infinite;
+    // -webkit-animation-duration: 300ms;
+    // -webkit-animation-fill-mode: both;
+    // -webkit-animation-direction: alternate;
+}
+.remark-fading {
+    // -webkit-transition: -webkit-transform 1s linear;
+    // -webkit-transform: translateX(80%);
+    // opacity: 0;
+    // -webkit-animation-name: animateSlideRight;
+    // -webkit-animation-timing-function: ease-in;
+    // // -webkit-animation-iteration-count: infinite;
+    // -webkit-animation-duration: 300ms;
+    // -webkit-animation-fill-mode: both;
+    // -webkit-animation-direction: alternate;
+
+}
+
+@-webkit-keyframes animateSlide {
+    0% {
+        // opacity: 0;
+        left: 100%;
+    }
+    100% {
+        // opacity: 1;
+        left: 0%;
+    }
+}
+@-webkit-keyframes animateSlideRight {
+    0% {
+        // opacity: 0;
+        left: 0%;
+    }
+    100% {
+        // opacity: 1;
+        left: -100%;
+    }
+}
+

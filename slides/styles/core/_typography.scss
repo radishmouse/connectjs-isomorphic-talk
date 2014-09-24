@@ -1,0 +1,50 @@
+// -------------------------------------
+//   Typography
+// -------------------------------------
+// ----- Fonts and Colors
+// -------------------------------------
+
+// -------------------------------------
+//   Global
+// -------------------------------------
+
+.t-green-txt {
+  color: $color-green;
+}
+
+.t-orange-txt {
+  color: $color-orange;
+}
+
+.t-yellow-txt {
+  color: $color-yellow;
+}
+
+.t-white-txt {
+  color: $color-white;
+}
+
+.t-dark-gray-txt {
+  color: $color-dark-gray;
+}
+
+.t-small-caps {
+  @include font-in-rems(1.5);
+  @include line-height-in-rems(2.0);
+  color: $color-mid-light-gray;
+  font-family: $font-f-heavy;
+  letter-spacing: 2px;
+  padding-bottom: 0.35em;
+}
+
+.t-lined-heading {
+  @include font-in-rems(1.2);
+  @include line-height-in-rems(2.2);
+  color: $color-white;
+  font-family: $font-f-heavy;
+  text-align: center;
+}
+
+.t-section-heading {
+  padding-top: 50px;
+}

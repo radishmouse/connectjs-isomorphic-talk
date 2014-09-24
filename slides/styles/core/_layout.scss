@@ -1,0 +1,183 @@
+// // -------------------------------------
+// //   Layout
+// // -------------------------------------
+// // ----- Margin, Padding, and General Sizing of Main Containers
+// // -------------------------------------
+
+// // -------------------------------------
+// //   Global
+// // -------------------------------------
+
+// .l-container {
+//   @include outer-container;
+//   padding-left: $grid-container-padding;
+//   padding-right: $grid-container-padding;
+// }
+
+// .l-hero-container {
+//   padding-bottom: 35px;
+//   padding-top: 35px;
+//   text-align: center;
+//   @include breakpoint(768px) {
+//     padding-bottom: 55px;
+//     padding-top: 55px;
+//   }
+// }
+
+// .l-lined-heading-container {
+//   @extend %clearfix;
+//   padding-bottom: 35px;
+// }
+
+// .l-link-heading-container {
+//   @extend %clearfix;
+//   display: inline-block;
+//   text-align: center;
+//   padding-bottom: 5px;
+//   &:hover {
+//     text-decoration: none;
+//     .icon-button-red-arrow {
+//       @extend .icon-button-red-arrow-rollover;
+//     }
+//   }
+// }
+
+// .l-link-heading {
+//   display: inline-block;
+//   padding-right: 2px;
+// }
+
+// .l-lined-heading {
+//   &:first-child {
+//     @include span-columns(3);
+//   }
+//   &:nth-child(2) {
+//     @include span-columns(6);
+//   }
+//   &:last-child {
+//     @include span-columns(3);
+//     @include omega;
+//   }
+//   @include breakpoint(768px) {
+//     &:first-child,
+//     &:nth-child(2) {
+//       @include span-columns(4);
+//     }
+//     &:last-child {
+//       @include span-columns(4);
+//     }
+//   }
+// }
+
+// .l-shift-grid {
+//   @include breakpoint(768px) {
+//     @include span-columns(10);
+//     @include shift(1);
+//     @include omega;
+//   }
+// }
+
+// .l-style-guide {
+//   padding: 30px 0;
+// }
+
+// // Promos
+// // -------------------------------------
+
+// .l-promo-container {
+//   @extend %clearfix;
+//   margin-top: 30px;
+// }
+
+// .l-promo {
+//   @extend %clearfix;
+//   padding: 4.5787545787545785%;
+// }
+
+// .l-promo-pic {
+//   float: left;
+//   margin-right: 15px;
+//   width: 66px;
+// }
+
+// //   Home Clients
+// // -------------------------------------
+
+// .l-clients-container {
+//   @extend %clearfix;
+//   margin-top: 30px;
+//   padding-bottom: 25px;
+//   padding-top: 20px;
+// }
+
+// //   App Development
+// // -------------------------------------
+
+// .l-app-development-container {
+//   padding-top: 40px;
+// }
+
+// .l-app-development {
+//   @include span-columns(12);
+//   padding-bottom: 30px;
+//   @include breakpoint(768px) {
+//     @include span-columns(6);
+//     padding-bottom: 50px;
+//     padding-left: 20px;
+//     padding-right: 20px;
+//     &:nth-child(even) {
+//       @include omega;
+//     }
+//   }
+// }
+
+// .l-app-dev-list {
+//   @extend %clearfix;
+//   @include span-columns(12);
+//   @include breakpoint(768px) {
+//     @include span-columns(4);
+//     &:last-child {
+//       @include omega;
+//     }
+//   }
+// }
+
+// .l-app-dev-list-icon {
+//   display: block;
+//   margin: 0 auto;
+// }
+
+// .l-client-quote {
+//   padding-top: 30px;
+//   padding-bottom: 35px;
+// }
+
+// .l-location-container {
+//   padding-bottom: 45px;
+//   padding-top: 45px;
+//   @include span-columns(12);
+//   @include breakpoint(768px) {
+//     @include span-columns(8);
+//     padding-bottom: 70px;
+//   }
+// }
+
+// .l-location-links {
+//   @include span-columns(12);
+//   padding-bottom: 45px;
+//   @include breakpoint(768px) {
+//     @include span-columns(4);
+//     @include omega;
+//     padding-top: 55px;
+//     padding-bottom: 70px;
+//   }
+// }
+
+// // -------------------------------------
+// //   Footer
+// // -------------------------------------
+
+
+// // -------------------------------------
+// //   States
+// // -------------------------------------

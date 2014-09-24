@@ -1,0 +1,130 @@
+// // -------------------------------------
+// //   Base
+// // -------------------------------------
+// // ----- Base-level tags (body, p, etc.)
+// // -------------------------------------
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  @include font-in-rems(1.7);
+  @include line-height-in-rems(2.5);
+  background: #fff;
+  color: $color-dark-gray;
+  font-family: $font-arial;
+  @include breakpoint(768px) {
+    @include font-in-rems(1.8);
+    @include line-height-in-rems(2.6);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: normal;
+  margin: 0;
+}
+
+h1 {
+  @include font-in-rems(2.8);
+  @include line-height-in-rems(3.5);
+  color: $color-yellow;
+  font-family: $font-f-medium;
+  padding-bottom: 0.25em;
+  @include breakpoint(768px) {
+    @include font-in-rems(4.2);
+    @include line-height-in-rems(4.8);
+  }
+}
+
+h2 {
+  @include font-in-rems(2.1);
+  @include line-height-in-rems(2.9);
+  font-family: $font-georgia;
+  padding-bottom: 0.45em;
+  padding-top: 0.50em;
+  @include breakpoint(768px) {
+    @include font-in-rems(2.4);
+    @include line-height-in-rems(3.1);
+  }
+}
+
+h3,
+h4,
+h5,
+h6 {
+  @include font-in-rems(2.1);
+  @include line-height-in-rems(2.9);
+  font-family: $font-georgia;
+  padding-bottom: 0.45em;
+  padding-top: 0.50em;
+  @include breakpoint(768px) {
+    @include font-in-rems(2.4);
+    @include line-height-in-rems(3.1);
+  }
+}
+
+p {
+  padding-bottom: 0.85em;
+}
+
+nav > ul {
+  margin: 0;
+}
+
+nav > ul > li {
+  list-style: none;
+  padding: 0;
+}
+
+ul {
+  @extend %clearfix;
+  margin: 0 0 0 35px;
+  padding: 0;
+}
+
+li {
+  // list-style-image: url('../img/bullet.png');
+  padding-bottom: 0.25em;
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: $color-orange;
+  text-decoration: none;
+  -ms-word-wrap: break-word;
+      word-wrap: break-word;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+// code {
+//   -ms-word-wrap: break-word;
+//       word-wrap: break-word;
+// }
+
+// time {
+//   text-transform: uppercase;
+// }
+
+// footer {
+//   @include font-in-rems(1.5);
+//   color: $color-mid-light-gray;
+//   font-family: $font-arial;
+//   padding-bottom: 50px;
+//   padding-top: 30px;
+// }

@@ -1,0 +1,124 @@
+// -------------------------------------
+//   Helpers
+// -------------------------------------
+// ----- Placeholders, Extends, Mixins, and Functions
+// -------------------------------------
+
+// -------------------------------------
+//   Placeholders
+// -------------------------------------
+
+%ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  // IE 6/7 fallback
+  *text-indent: -9999px;
+}
+
+%ir:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 150%;
+}
+
+%clearfix:before,
+%clearfix:after {
+  content: " ";
+  display: table;
+}
+
+%clearfix:after {
+  clear: both;
+}
+
+%clearfix {
+  *zoom: 1;
+}
+
+// -------------------------------------
+//   Functions
+// -------------------------------------
+
+
+// -------------------------------------
+//   Mixins
+// -------------------------------------
+
+@mixin breakpoint($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin background-image-helper($url) {
+  background: url($url) no-repeat;
+  height: image-height($url);
+  width: image-width($url);
+}
+
+@mixin background-image-full-helper($url) {
+  $image-padding: percentage(image-height($url) / image-width($url));
+  background: url($url) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-bottom: $image-padding / 2;
+  padding-top: $image-padding / 2;
+  max-height: image-height($url);
+}
+
+@mixin background-image-height-helper($url) {
+  background: url($url) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: image-height($url);
+  width: 100%;
+}
+
+@mixin responsive-width-helper($target, $context) {
+  width: percentage($target / $context);
+}
+
+@mixin font-in-rems($px-width) {
+  font-size: #{$px-width * 10}px;
+  font-size: #{$px-width}rem;
+}
+
+@mixin line-height-in-rems($px-width) {
+  line-height: #{$px-width * 10}px;
+  line-height: #{$px-width}rem;
+}
+
+
+
+// -------------------------------------
+//   Utilities
+// -------------------------------------
+
+.u-tac {
+  text-align: center;
+}
+
+.u-pull-left {
+  float: left;
+}
+
+.u-pull-right {
+  float: right;
+}
+
+.u-display-block {
+  display: block;
+}
+
+.chromeframe {
+  background: #ccc;
+  color: #000;
+  margin: 0.2em 0;
+  padding: 0.2em 0;
+}

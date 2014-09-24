@@ -1,0 +1,25 @@
+{
+  "name": "isomorphic-thing",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~4.9.4",
+    "react": "~0.11.2",
+    "node-jsx": "~0.11.0"
+  },
+  "devDependencies": {
+    "vinyl-source-stream": "~1.0.0",
+    "gulp": "~3.8.8",
+    "reactify": "~0.14.0",
+    "gulp-plumber": "~0.6.5",
+    "browserify": "~5.12.0",
+    "del": "~0.1.3",
+    "gulp-util": "~3.0.1"
+  }
+}

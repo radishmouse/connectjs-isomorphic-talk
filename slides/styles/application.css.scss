@@ -1,0 +1,60 @@
+// css-burrito v1.0 | MIT License | github.com/jasonreece/css-burrito
+
+// -------------------------------------
+//   Application.css.scss
+// -------------------------------------
+// ----- Contains an import section for libraries, core, and modules, the inbox,
+// ----- and a shame section for quick fixes and hacks
+
+// -------------------------------------
+//   Libraries
+// -------------------------------------
+
+// ----- Reset - Normalize.css ----- //
+// @import "libs/normalize";
+
+// ----- Variable overrides for Bootstrap and other libraries ----- //
+// @import "libs/library-variable-overrides";
+
+// // ----- Compass (Sprite Generation) ----- //
+// @import "compass/utilities/sprites";
+
+// // ----- Bourbon (CSS3 Mixins and Grid) ----- //
+// @import 'libs/bourbon/bourbon';
+// @import 'libs/neat/neat';
+
+// -------------------------------------
+//   Core
+// -------------------------------------
+
+// ----- Settings - @Font-Face Declarations, Variables ----- //
+@import "core/settings";
+
+// ----- Helpers - Extends, Functions, and Mixins ----- //
+@import "core/helpers";
+
+// ----- Base - Base-level tags (body, p, etc.) ----- //
+@import "core/base";
+
+// ----- Typography - Fonts and Colors ----- //
+@import "core/typography";
+
+// ----- Layout - Margin, Padding, Sizing ----- //
+@import "core/layout";
+
+// ----- Skin - Backgrounds, Borders, Box-shadow, etc ----- //
+@import "core/skin";
+
+// ----- Modules - Imports all module files. ----- //
+@import "core/modules";
+
+// -------------------------------------
+//   Inbox
+// -------------------------------------
+// ----- The inbox allows developers, and those not actively working on the CSS,
+// to quickly add styles that are easily seen by the maintainer of the file.
+
+// -------------------------------------
+//   Shame
+// -------------------------------------
+// ----- Need to add a quick fix, hack, or questionable technique?  Add it here, fix it later.

@@ -1,0 +1,56 @@
+// -------------------------------------
+//   Settings
+// -------------------------------------
+// ----- @Font-Face Declarations, Variables
+// -------------------------------------
+
+// -------------------------------------
+//   @font-face
+// -------------------------------------
+
+$font-folders: 'futura';
+$font-names: 'futura-book', 'futura-medium', 'futura-heavy';
+
+@each $font-folder in $font-folders  {
+  @each $font-name in $font-names {
+    @font-face {
+      font-family: #{$font-name};
+      src: url('../fonts/#{$font-folder}/#{$font-name}.eot?#iefix') format('embedded-opentype'),
+           url('../fonts/#{$font-folder}/#{$font-name}.woff') format('woff'),
+           url('../fonts/#{$font-folder}/#{$font-name}.ttf') format('truetype'),
+           url('../fonts/#{$font-folder}/#{$font-name}.svg##{$font-name}') format('svg');
+    }
+  }
+}
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+
+// ----- Colors ----- //
+$color-blue: #5c5b56;
+$color-light-blue: #eaf3f8;
+
+$color-light-gray: #f1efe9;
+$color-mid-light-gray: #808080;
+$color-gray: #eaeaea;
+$color-mid-gray: #666;
+$color-dark-gray: #4d4d4d;
+
+$color-white: #f5f4f1;
+
+$color-green: #747501;
+$color-yellow: #e7ad10;
+$color-orange: #d8531e;
+
+// ----- Fonts ----- //
+
+$font-f-book: 'futura-book', "Trebuchet MS", sans-serif;
+$font-f-medium: 'futura-medium', "Trebuchet MS", sans-serif;
+$font-f-heavy: 'futura-heavy', "Trebuchet MS", sans-serif;
+
+$font-georgia: Georgia, serif;
+$font-arial: Arial, sans-serif;
+
+// ----- Grid ----- //
+// $grid-container-padding: $column;
