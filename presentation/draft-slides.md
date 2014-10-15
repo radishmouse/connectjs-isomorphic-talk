@@ -205,7 +205,7 @@ In a SPA, the DOM is mostly produced by JavaScript through:
 * Storage
     * PouchDB
 * Offline-first
-    
+
 ---
 
 # Routing
@@ -284,5 +284,5 @@ That's actually a great metaphor.
 
 # And Routing
 
-This is where things get a little weird. (see notes)  
+This is where things get a little weird. (see notes)
 The router I chose doesn't work as well for server-side rendering

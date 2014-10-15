@@ -8,8 +8,6 @@ var GoodbyeWorld = require('./goodbye-world.js');
 
 var Page = React.createClass({
     render: function () {
-
-
         // var component = this.props.subComponent;
 
         return (<div className="container">
