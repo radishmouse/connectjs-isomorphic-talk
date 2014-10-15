@@ -131,12 +131,22 @@ using data retrieved from a remote API.
 
 ---
 
-# Frameworks
+# Frameworks are ecosystems
 
+--
+
+* Abstractions
+
+--
+
+* Conventions
+
+--
+
+* Community
 
 
 ???
-
 
 To wrangle the complexity, we add more layers of abstraction and standardize the conventions, which increases the overall complexity, but reduces the amount of complexity for the day-to-day work of a developer
 
@@ -146,7 +156,17 @@ solve some of the problems, but not all
 
 # Build Tools
 
+--
 
+* Manage dependencies
+
+--
+
+* Optimize assets
+
+--
+
+* Transpile and/or Precompile
 
 
 ???
@@ -155,9 +175,11 @@ solve some of the problems, but not all
 
 # The Back End problem
 
-We move towards APIs.
+The front end now replicates the kind of DOM production formerly done by back end frameworks.
 
-Our APIs should not need to know about what's on a screen.
+They can now move towards APIs.
+
+But, the APIs should not need to know about what's on a screen.
 
 By the same token, we should not weigh down the client with too many API requests to assemble the data needed for any single screen.
 
