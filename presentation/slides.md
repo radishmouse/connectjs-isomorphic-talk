@@ -15,7 +15,20 @@ layout: false
 
 template: cover
 
-# From Static to Single Page Application
+
+# (stating the problem) Ultimately, the goal is DOM production
+## followed by a short history of how we have done this
+
+why am i showing the history?
+what problem were we solving (whose by product is all the complexity we're dealing with as developers)
+
+* the needs and expectations of the user increased, so we shifted the logic to the browser
+
+
+
+* competing with desktop
+* then, competing with smartphone apps
+* we're providing the user with immersion, cohesion, and integration (partially a time thing. faster access to collaborative data)
 
 ---
 
@@ -85,12 +98,23 @@ Marks the advent of browser-based thick clients.
 ???
 Software engineering practices come to JavaScript.
 
+---
+
+template: cover
+
+# What's in a Single Page App?
 
 ---
 
-# Browser MV*
+# MV* in the Browser
 
-![](img/05a.Frameworks.png)
+![](img/05a1.MVC.png)
+
+---
+
+# MV* in the Browser
+
+![](img/05a2.MVC.png)
 
 
 ???
@@ -103,35 +127,61 @@ using data retrieved from a remote API.
 
 ---
 
-# Browser MV*
+# MV* in the Browser
 
-![](img/05b.Frameworks.png)
-
-
----
-
-# Browser MV*
-
-![](img/05c.Frameworks.png)
+![](img/05b.MVC.png)
 
 
 ---
 
-# Browser MV*
+# MV* in the Browser
 
-![](img/05d.Frameworks.png)
-
-
----
-
-# Browser MV*
-
-![](img/05e.Frameworks.png)
+![](img/05c.MVC.png)
 
 
 ---
 
-# Frameworks are ecosystems
+# MV* in the Browser
+
+![](img/05d.MVC.png)
+
+
+---
+
+# MV* in the Browser
+
+![](img/05e.MVC.png)
+
+
+---
+template: cover
+
+# Problems arise
+
+---
+
+# Complexity
+
+![](img/04.JSMVC.png)
+
+
+---
+
+# Complexity
+
+![](img/06.Problem1.png)
+
+???
+
+* js and all assets need to download
+* then it has to grab remote data
+* takes too long for initial presentation of data
+
+
+
+---
+
+# Frameworks organize your application code
 
 --
 
@@ -148,13 +198,17 @@ using data retrieved from a remote API.
 
 ???
 
+
+Frameworks make organize your application.
+By standardizing the patterns and conventions you use.
+
 To wrangle the complexity, we add more layers of abstraction and standardize the conventions, which increases the overall complexity, but reduces the amount of complexity for the day-to-day work of a developer
 
 solve some of the problems, but not all
 
 ---
 
-# Build Tools
+# Build Tools organize your development process
 
 --
 
@@ -171,9 +225,32 @@ solve some of the problems, but not all
 
 ???
 
+Makes it easier to operate at an even higher level of abstraction.
+
+Build tools organize your development process.
+
+Build tools and frameworks shim the development environment.
+
 ---
 
-# The Back End problem
+template: cover
+
+# Congratulations! Next?
+
+???
+
+With frameworks and build tools, you've shimmed away the complexities.
+
+---
+
+
+
+# Performance and Per-screen requests
+
+![](img/07.Problem2.png)
+
+???
+
 
 The front end now replicates the kind of DOM production formerly done by back end frameworks.
 
@@ -184,31 +261,41 @@ But, the APIs should not need to know about what's on a screen.
 By the same token, we should not weigh down the client with too many API requests to assemble the data needed for any single screen.
 
 
+---
+template: cover
+
+# So, what can we do?
 
 ---
 
 template: cover
 
 # Going Isomorphic
+## this section needs to be about the isomorphic architecture, with a diagram on the very first slide
+## The next slide needs a statement of goals.
 
----
+???
 
-# Sharing is caring
-
-Earlier versions of this was the sharing of templates with your backend.
-The goal was to reduce the time before the user could see the UI and then interact with it.
-
-That solves one of the problems.
-
+How do we go from where we are to where we want to be?
 ---
 
 # Divide and conquer
 
+One of our remaining problems is that the back end knows too much about how our UI is put together.
 
 To solve this problem, we split our concerns further.
+
 We introduce a second server, specifically for aggregating the data for the UI.
 
 But, couldn't we move the template rendering to the second server, also?
+
+
+
+---
+
+template: cover
+
+# The Stack
 
 ---
 
@@ -223,43 +310,14 @@ To do that, we should choose a common
 
 ---
 
-# Shimmed context
-
-(move this slide)
-you're essentially shimming the environment that your app runs in.
-
-and really, you're shimming the environment in which DOM is produced, which overlaps to the development environment
----
-
-# Shims and Polyfills
-
-anti-psychotics for your code
-
----
-
-# Build tool
-
-we were already using a build tool for building modern SPAs
-
----
-
-# DOM production
-
-so, we can reuse a subset of these build steps, but on the UI server
-
----
-
-template: cover
-
-# The Stack
-
----
-
 # Base setup
 
 ---
 
-## Build Tool
+# Build Tool
+
+## diagram what is the end result of using gulp
+
 
 Gulp provides a pipeline style task runner with a small API.
 Browserify allows you to create and use Node-style modules in your browser-based JavaScript.
@@ -270,14 +328,37 @@ Used in combination, you write simple modules, which are bundled into a single J
 
 ## BrowserSync
 
+want to guarantee parity between what is emitted by UI server and what is drawn by the static JS in-browser is the same. so, BS for development testing.
+
+diagram of what i mean by "parity"
+
 A basic `index.html` file will be the base of the application.
 BrowserSync will serve it and the bundled JavaScript to the browser, and it
 will reload the browser when changes are made to the application code.
 
 ---
 
-# Component based application
+# application architecture
 
+(diagram of previous messy browser architecture, highlight each one as you go from piece to piece of the app)
+
+
+---
+
+# Views
+
+
+why react?
+b/c it fulfills the DOM production aspect, regardless of context.
+
+(maybe on an earlier slide, i can make it more explicit what my goals are for isomorphic)
+
+Use React components for the View layer.
+
+* functions
+* composable
+* context-agnostic
+* can emit HTML strings
 
 ---
 
@@ -287,14 +368,14 @@ will reload the browser when changes are made to the application code.
 
 ---
 
-# Server-Side Rendering
+# Server-Side Rendering (UI Server)
 
 The Express application can compile the components as needed.
 The components are rendered to an their HTML representation.
 
 ---
 
-# Rendering the Router component
+# Rendering the Router component (an aside)
 
 Routing is duplicated on the server using our custom `ReactRouter` component.
 We could not it render on the server the way that regular React components are rendered to HTML.
@@ -309,13 +390,19 @@ Dispatchers and Actions replace controllers.
 
 ---
 
-# Rendering Components with initial data
+# Rendering Components with initial data (aside)
 
 On the server, we inject the initial data for the stores via a global variable.
 
 ---
 
-# HTTP/XHR
+# HTTP/XHR (aside about the thing that talks to API)
+
+we are highlighting the use of an isomorphic library, superagent
+
+Retrieve the data from the remote host from either the server or the client.
+
+If appropriate, cache the data per screen on the server-side.
 
 ---
 
