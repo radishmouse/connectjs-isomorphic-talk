@@ -1,288 +1,363 @@
 
 template: cover
 
-# Isomorphic JavaScript
+# Building Blocks for Isomorphic JavaScript Apps
+## Chris Aquino, Big Nerd Ranch
 
 ---
 
-# What does that even mean?
+class: middle, center
+layout: false
+
+![](img/bnr-logo.png)
 
 ---
+
+template: cover
+
+# From Static to Single Page Application
+
+---
+
 
 layout: false
 
-# The short version:
+# In the beginning...
 
-![](img/iso.jpg)
+![](img/01.static.png)
+
+???
+
+One file, one page.
+Human writes HTML.
+Browser renders it.
+
+---
+
+# Database-driven
+
+![](img/02a.dynamic.png)
+
+???
+
+Support dynamic data, without manually creating new pages
+Human writes algorithm to write HTML using data from database.
+Browser renders it.
+
+---
+
+# Server-side MVC
+
+![](img/02b.dynamic.png)
+
+???
+
+Software engineering practices come to web servers.
+Humans create workflows in code form.
+Workflows result in HTML.
+Browser renders it.
 
 
 ---
 
+# Ajax
 
-# The short version:
+![](img/03.ajax.png)
 
-![](img/iso2.jpg)
+???
+
+To increase the "interactivty" on a page, humans employ Ajax.
+Whole chunks of HTML are retrieved from server.
+Or, XML or JSON data is retrieved from server.
+
+In the case of XML or JSON, the DOM elements are created via JavaScript.
+This JavaScript is written either by a human, or is incorporated
+into the framework (Rails is writing the JS for the Ajax).
+
+Marks the advent of browser-based thick clients.
+
+---
+
+# Single Page Applications
+
+![](img/04.JSMVC.png)
+
+???
+Software engineering practices come to JavaScript.
+
+
+---
+
+# Browser MV*
+
+![](img/05a.Frameworks.png)
+
+
+???
+
+Enter MV*
+Which also includes Templating, Routing, and Persistence
+
+JavaScript handles the creation of most, if not all, DOM
+using data retrieved from a remote API.
+
+---
+
+# Browser MV*
+
+![](img/05b.Frameworks.png)
+
+
+---
+
+# Browser MV*
+
+![](img/05c.Frameworks.png)
+
+
+---
+
+# Browser MV*
+
+![](img/05d.Frameworks.png)
+
+
+---
+
+# Browser MV*
+
+![](img/05e.Frameworks.png)
+
+
+---
+
+# Frameworks
+
+
+
+???
+
+
+To wrangle the complexity, we add more layers of abstraction and standardize the conventions, which increases the overall complexity, but reduces the amount of complexity for the day-to-day work of a developer
+
+solve some of the problems, but not all
+
+---
+
+# Build Tools
+
+
+
+
+???
+
+---
+
+# The Back End problem
+
+We move towards APIs.
+
+Our APIs should not need to know about what's on a screen.
+
+By the same token, we should not weigh down the client with too many API requests to assemble the data needed for any single screen.
+
+
 
 ---
 
 template: cover
 
-# Background
+# Going Isomorphic
 
 ---
 
-class: center, middle
+# Sharing is caring
 
-![](img/apple-png.png)
+Earlier versions of this was the sharing of templates with your backend.
+The goal was to reduce the time before the user could see the UI and then interact with it.
 
-
----
-
-class: center, middle
-
-![](img/436.gif)
-
-
----
-class: center, middle
-
-
-![](img/jquery-logo.png)
+That solves one of the problems.
 
 ---
 
-class: center, middle
-
-![](img/rails.png)
+# Divide and conquer
 
 
----
+To solve this problem, we split our concerns further.
+We introduce a second server, specifically for aggregating the data for the UI.
 
-class: center, middle
-
-![](img/jquery-logo.png)
-
+But, couldn't we move the template rendering to the second server, also?
 
 ---
 
-template: cover
+# Common ground
 
-# The problem
+(that last transition is messy and unclear)
+To do that, we should choose a common
 
----
-
-class: center, middle
-layout: false
-
-![](img/rails-php-wtf.png)
+* language
+* module system
+* set of libraries (context agnostic libraries that are needed to fulfill the UI)
 
 ---
 
-class: center, middle
+# Shimmed context
 
-![](img/ajax-no-better.png)
+(move this slide)
+you're essentially shimming the environment that your app runs in.
+
+and really, you're shimming the environment in which DOM is produced, which overlaps to the development environment
+---
+
+# Shims and Polyfills
+
+anti-psychotics for your code
 
 ---
 
-template: cover
+# Build tool
 
-# The Gray Area
-
----
-
-class: center, middle
-
-![](img/server-doing-too-much.png)
-
+we were already using a build tool for building modern SPAs
 
 ---
 
+# DOM production
 
-template: cover
-
-# A possible solution
-
----
-
-
-class: center, middle
-
-![](img/js-app.png)
-
+so, we can reuse a subset of these build steps, but on the UI server
 
 ---
 
 template: cover
 
-# What's that mean?
-
-
----
-
-template: cover
-# A JavaScript App can be...
-
----
-class: center, middle
-
-![](img/phonegap.png)
+# The Stack
 
 ---
 
-class: center, middle
-
-![](img/images.jpg)
-
+# Base setup
 
 ---
 
-class: center, middle
+## Build Tool
 
-![](img/atom-full.png)
+Gulp provides a pipeline style task runner with a small API.
+Browserify allows you to create and use Node-style modules in your browser-based JavaScript.
 
-
----
-
-template: cover
-# It can also be
+Used in combination, you write simple modules, which are bundled into a single JavaScript payload.
 
 ---
 
-class: center, middle
+## BrowserSync
 
-![](img/iso-3.png)
-
-
----
-
-# DOM Production
-
-* The DOM mutates over time
-* HTML is a set of instructions on the form and content of the DOM
-* It is rendered in the browser with styles dictated by CSS
-
-* Web Developers' concern is also a spectrum
-    * data (data models, databases, data transactions)
-    * users (experience and interaction)
-
-
-The story of single page apps is the story of moving pieces of the application across the wire to the browser.
-
-In a SPA, the DOM is mostly produced by JavaScript through:
-
-* templating
-* manual DOM creation
+A basic `index.html` file will be the base of the application.
+BrowserSync will serve it and the bundled JavaScript to the browser, and it
+will reload the browser when changes are made to the application code.
 
 ---
 
-# One aspect of Isomorphic is replication of this process on the server
+# Component based application
 
-* React and Server Side Rendering
 
----
-
-# Modern app architectures fall into the following module categories
-
-* models
-    * persistence
-    * (remote persistence)
-    * (local persistence)
-* views
-    * templating
-* controllers
-* routing
-
----
-
-# Models
-
----
-
-# Persistence
-
-* HTTP Requests to Remote APIs
-    * SuperAgent
-* Storage
-    * PouchDB
-* Offline-first
-    
 ---
 
 # Routing
 
-* Director
-* React-Router
-* rrouter
-* react-router-component
-
+`ReactRouter` was chosen because it is modeled after Ember's robust routing system.
 
 ---
 
-# Isomorphic Apps are almost all the way at the other end of the complexity spectrum
+# Server-Side Rendering
 
-* Build tools are required
-* So are shims (that detect the environment)
-
-
-
-Remember fat binaries?
+The Express application can compile the components as needed.
+The components are rendered to an their HTML representation.
 
 ---
 
-# Modules
+# Rendering the Router component
 
-* Browserify
-* Webpack
-* ES6
-    * SystemJS
+Routing is duplicated on the server using our custom `ReactRouter` component.
+We could not it render on the server the way that regular React components are rendered to HTML.
 
 ---
 
-# Speaking of modules
+# Models and Controllers
 
-* node modules are many, and many are good
-* use them, many are already isomorphic
-    * like lo-dash
+Flux Stores are used instead of a traditional (mutative) Model layer (such as Backbone.Model).
 
----
-
-# Why so serious?
-
-The web is just increasingly complex string concatenation.
-
-At the end of the day, it's just text
-
-Chris Heilmann doesn't think highly of Shimming and polyfills.
-
-You shim like mad in order to make the environment as sane as possible.
-
-The web is the most hostile programming environment known to man.
-
-Build tools shim the programming environment to allow for software engineering
-
-And, you're using a language that was built in 10 days.
-
-Sindre's quote about how spaceships will one day run JavaScript.
-
-That's actually a great metaphor.
-
-(Find this statistic) The surface of this 3rd rock from the sun is just right. For a human to travel beyond this environment, you have to simulate an environment where human life can exist.
+Dispatchers and Actions replace controllers.
 
 ---
 
-# The right tool is one that
+# Rendering Components with initial data
 
-* you understand how to use effectively today and in 6 months
-
----
-
-# Just Text
-
-* so, the real trick is, how do we produce the same text on the server (via JavaScript) as we do on the server (also via JavaScript)
+On the server, we inject the initial data for the stores via a global variable.
 
 ---
 
-# And Routing
+# HTTP/XHR
 
-This is where things get a little weird. (see notes)  
-The router I chose doesn't work as well for server-side rendering
+---
+
+template: cover
+
+# And...so:
+
+---
+
+# Winning
+
+(break this into multiple slides)
+
+* What is the payoff after using this complicated setup?
+    * The React/Flux stack was designed with scaling development by simplifying the mental model
+        * The conventions of your stack are data-flow centric, not object-mutation centric
+        * (If you think about an organization, you're focused on what people do, and not what they're called)
+    * Likewise, you allow your developers to play to their strengths
+        * Back end can build out APIs
+        * Front end can focus on performant UIs
+            * Per-screen API calls can be aggregated and cached on the Node server
+            * Component-based styling lends itself to styleguide driven development
+
+
+* Implications on design
+    * the JSX in /src/components lends itself to atomic design
+    * after the stack is installed (via `npm install`, BrowserSync provides a way to test your design on multiple devices simultaneously
+        * you could use fixture data
+        * and one could add automated screenshots
+    * you could create prototypes relatively quickly by:
+        * serving stubbed out .json files from `/api-static`
+        * using lo-fi CSS coupled with pre-built standard components
+            * (similar to react-bootstrap)
+* How easy is it to do TDD with this style of development? (That is, won't you have to test everything twice to make sure that the server-side rendering and browser rendering of components is the same?)
+    * Testing the changes that occur during user interaction is the same.
+    * Testing load of deep linking is what needs to be duplicated
+    * Otherwise, there are tools (yes, from Facebook) that work well with React/Flux based stack
+        * Jest for unit tests
+        * [Huxley](https://github.com/facebook/huxley) for visual regression
+
+---
+
+# Still climbing
+
+(break up)
+
+* And what are the tradeoffs?
+    * It's not an already established ecosystem (outside of places like Facebook or AirBnB) like Embularbone
+        * You can't just it up and build an app with a dozen lines of configuration
+        * But, at the same time, there is no magic, no mystery about the way it works.
+            * The ecosystem is largey npm
+    * Getting the stack set up is tricky
+        * There are a few sample projects on github
+            * including this one
+    * Training? Books?
+        * Big Nerd Ranch's Cross-Platform JavaScript Apps course is available, with Isomorphic techniques
+
+---
+
+template: cover
+
+# Thank you!
+
+![cute cat gif here]()
+
+## @radishmouse, @bignerdranch
+
