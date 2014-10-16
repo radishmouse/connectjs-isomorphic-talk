@@ -936,11 +936,57 @@ The components are rendered to an their HTML representation.
 
 # Models and Controllers: Flux
 
-* Store
+* Stores instead of Models
+* Controller-Views instead of Controllers
 
-* Dispatcher
+--
 
-* Actions
+* Actions are messages about data
+* Dispatcher manages all Actions
+
+---
+
+# Flux Architecture: Overview
+
+![](img/09a.flux.png)
+
+---
+
+# Flux Architecture: Overview
+
+
+![](img/09b.flux.png)
+
+
+
+---
+
+# Flux Architecture: Dipatcher
+
+```js
+var Dispatcher = require('flux').Dispatcher;
+var copyProperties = require('react/lib/copyProperties');
+var AppDispatcher = copyProperties(new Dispatcher(), {
+
+    handleServerAction: function(action) {
+        var payload = {
+            source: 'SERVER_ACTION',
+            action: action
+        };
+        this.dispatch(payload);
+    },
+    handleViewAction: function(action) {
+        var payload = {
+            source: 'VIEW_ACTION',
+            action: action
+        };
+        this.dispatch(payload);
+    }
+});
+
+module.exports = AppDispatcher;
+```
+
 
 ???
 
@@ -956,8 +1002,165 @@ On the server, we inject the initial data for the stores via a global variable.
 
 ---
 
+# Flux Architecture: Actions
+
+```js
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+
+module.exports = {
+    receiveAll: function(rawData) {
+*        AppDispatcher.handleServerAction({
+            type: "RECEIVE_DATA",
+            rawData: rawData
+        });
+    }
+};
+```
+
+---
+
+# Flux Architecture: Stores
+
+```js
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+...
+var Store = merge(EventEmitter.prototype, {
+    emitChange: function() {
+        this.emit(CHANGE_EVENT);
+    },
+    addChangeListener: function(callback) {
+        this.on(CHANGE_EVENT, callback);
+    }
+});
+*Store.dispatchToken = AppDispatcher.register(function(payload) {
+    var action = payload.action;
+    switch(action.type) {
+        case "RECEIVE_DATA":
+            _data = action.rawData;
+            Store.emitChange();
+        break;
+        default: // do nothing
+    }
+});
+module.exports = Store;
+```
+
+---
+
+#Flux Architecture: Views Subscribing to Stores
+
+```js
+...
+var Yep = React.createClass({
+    getInitialState: function() {
+        return getStateFromStore();
+    },
+    componentDidMount: function() {
+*      Store.addChangeListener(this._onChange);
+    },
+    componentWillUnmount: function() {
+*      Store.removeChangeListener(this._onChange);
+    },
+
+    render: function () {...},
+
+    _onChange: function () {
+*        this.setState(getStateFromStore());
+    }
+});
+
+module.exports = Yep;
+
+```
+
+---
+#Flux Architecture: Views Subscribing to Stores
+
+```js
+...
+var Yep = React.createClass({
+...
+    render: function () {
+*        var nodes = Object.keys(this.state.data).map(function (key) {
+            var datum = this.state.data[key];
+            return <p key={datum._id}> {datum.name}: {datum.price}</p>;
+        }.bind(this));
+        return (
+            <div>
+                <h1>Yep</h1>
+*                {nodes}
+            </div>
+
+        );
+    },
+...
+});
+
+module.exports = Yep;
+
+```
+---
+
 # Isomorphic Library: SuperAgent
 
+```js
+var ActionCreator = require('../actions/ActionCreator');
+var request = require('superagent');
+var URL = 'http://my.remote.server/endpoint';
+
+var _data = [{
+    name: 'placholder',
+    price: '1'
+}];
+module.exports = {
+
+    getAllNodes: function() {
+
+        // fake caching via intermediary variable
+        ActionCreator.receiveAll(_data);
+
+*        request.get(URL, function (res){
+            _data = res.body;
+            ActionCreator.receiveAll(_data);
+        });
+
+    }
+
+};
+```
+
+---
+
+# Isomorphic Library: SuperAgent
+
+```js
+var ActionCreator = require('../actions/ActionCreator');
+var request = require('superagent');
+var URL = 'http://my.remote.server/endpoint';
+
+var _data = [{
+    name: 'placholder',
+    price: '1'
+}];
+module.exports = {
+
+    getAllNodes: function() {
+
+        // fake caching via intermediary variable
+*        ActionCreator.receiveAll(_data);
+
+        request.get(URL, function (res){
+            _data = res.body;
+*            ActionCreator.receiveAll(_data);
+        });
+
+    }
+
+};
+```
+
+
+???
 Take one of our Stores, and wire it up with SuperAgent
 
 The server doesn't actually need to .post anything, just .get stuff from
