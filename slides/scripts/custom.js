@@ -32,7 +32,11 @@ function getParameterByName(name) {
             navigation: {
                 scroll: false
             },
-            highlightStyle: 'monokai'
+            ratio: '16:9',
+            highlightStyle: 'vs'
+            // highlightStyle: 'googlecode'
+            // highlightStyle: 'idea'
+            // highlightStyle: 'tomorrow-night-bright' // dark, bold
         });
 
         var jsbinScript = document.createElement("script");

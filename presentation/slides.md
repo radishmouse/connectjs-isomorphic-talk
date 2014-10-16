@@ -234,8 +234,19 @@ template: cover
 
 How do we go from where we are to where we want to be?
 ---
+# Simplify the mental model
+
+---
+
+# Render deep links on the server
+
+---
 
 # Divide and conquer
+
+
+
+???
 
 One of our remaining problems is that the back end knows too much about how our UI is put together.
 
@@ -251,26 +262,58 @@ But, couldn't we move the template rendering to the second server, also?
 
 template: cover
 
-# The Stack
+# An Isomorphic Stack
 
 ---
 
-# Common ground
+# Finding common ground
 
-(that last transition is messy and unclear)
-To do that, we should choose a common
+--
 
-* language
-* module system
-* set of libraries (context agnostic libraries that are needed to fulfill the UI)
+* JavaScript
+
+--
+
+* Node/CommonJS Modules
+
+--
+
+* Context-agnostic Libraries
+
+???
+
+(context agnostic libraries that are needed to fulfill the UI)
 
 ---
 
-# Base setup
 
----
+# Gulp
 
-# Build Tool
+```js
+var gulp = require('gulp');
+var config = require('./config');
+var paths = config.paths;
+
+// Actual task functions are in `tasks` folder
+var bSync = require('./tasks/sync');
+var browserify = require('./tasks/browserify')(paths.js.app, paths.bundleName, paths.js.dest);
+
+gulp.task('build', browserify);
+gulp.task('browser-sync', ['build'], bSync.sync(paths.baseDir));
+
+gulp.task('default', ['browser-sync'], function () {
+    gulp.watch(paths.js.src, ['build', function () {
+        bSync.reload(); // full reload
+    }]);
+});
+```
+
+
+???
+
+Alternatives: Grunt, Make, Cake, Rake, etc.
+
+
 
 ## diagram what is the end result of using gulp
 
@@ -282,7 +325,62 @@ Used in combination, you write simple modules, which are bundled into a single J
 
 ---
 
-## BrowserSync
+# Browserify
+
+```js
+var gulp = require('gulp');
+var browserify = require('browserify');
+var reactify = require('reactify');
+var source = require('vinyl-source-stream');
+
+module.exports = function (src, bundleName, dest) {
+    return function () {
+        var b = browserify({
+            detectGlobals : true
+        });
+        b.transform(reactify);
+        b.add([src]);
+        return b.bundle()
+            .pipe(source(bundleName))
+            .pipe(gulp.dest(dest));
+    };
+};```
+
+
+
+???
+
+
+Provides Node style Modules as well as some Node APIs for the browser
+
+Alternatives: Webpack
+
+---
+
+# BrowserSync
+
+```js
+// BrowserSync is a better live-reload + static server
+var browserSync = require('browser-sync');
+
+function _sync(dir){
+    return function () {
+        browserSync({
+            open: false,
+            server: {
+                baseDir: dir,
+            }
+        });
+    };
+}
+
+module.exports = {
+    sync: _sync,
+    reload: browserSync.reload
+};
+```
+
+???
 
 want to guarantee parity between what is emitted by UI server and what is drawn by the static JS in-browser is the same. so, BS for development testing.
 
@@ -294,15 +392,152 @@ will reload the browser when changes are made to the application code.
 
 ---
 
-# application architecture
+# Views: React Components
 
-(diagram of previous messy browser architecture, highlight each one as you go from piece to piece of the app)
+--
 
+* Declarative
+
+--
+
+* Composable
+
+--
+
+* Performant
 
 ---
 
-# Views
+# Component: Router
 
+```js
+/** @jsx React.DOM */
+var Router = require('react-router');
+var Route = Router.Route;
+var Routes = Router.Routes;
+var DefaultRoute = Router.DefaultRoute;
+var App = require('./App');
+var HelloWorld = require('./components/hello');
+var About = require('./components/about');
+var Yep = require('./components/yep');
+var routes = (
+    <Routes location={ 'history' } scrollBehavior="browser">
+        <Route name="app" path="/" handler={App}>
+            <Route name="yep" handler={Yep}></Route>
+            <Route name="about" handler={About}></Route>
+            <DefaultRoute handler={HelloWorld}></DefaultRoute>
+        </Route>
+    </Routes>
+);
+
+module.exports = routes;
+```
+
+???
+
+`ReactRouter` was chosen because it is modeled after Ember's robust routing system.
+---
+
+# Component: App
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var Header = require('./components/header');
+var Footer = require('./components/footer');
+var HelloWorld = require('./components/hello');
+var App = React.createClass({
+    render: function () {
+        return (
+            <section>
+                <Header />
+                <HelloWorld />
+                <Footer timeStamp={this._timeStamp()}/>
+            </section>
+        );
+    },
+    _timeStamp: function () {
+        return (new Date()).getTime();
+    }
+});
+module.exports = App;
+```
+
+---
+
+# Component: Header
+
+```js
+/** @jsx React.DOM */
+var Nav = require('./nav');
+
+var React = require('react');
+var Header = React.createClass({
+    render: function () {
+        return (
+            <Nav />
+        );
+    }
+});
+
+module.exports = Header;
+```
+
+---
+
+# Component: Nav
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
+
+var Nav = React.createClass({
+    render: function () {
+        return (
+            <nav>
+                <ul>
+                    <li><Link to="app">Hello</Link></li>
+                    <li><Link to="yep">Yep</Link></li>
+                    <li><Link to="about">About</Link></li>
+                </ul>
+            </nav>
+        );
+    }
+});
+
+module.exports = Nav;
+```
+
+---
+
+# Component: HelloWorld
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var HelloWorld = React.createClass({
+    getInitialState: function () {
+        return {
+            _message: 'Hello, World!'
+        };
+    },
+    render: function () {
+        return (
+            <h1 onClick={this._changeMessage}>{this.state._message}</h1>
+        );
+    },
+    _changeMessage: function () {
+        return /Hello/.test(this.state._message) ?
+            this.setState({_message: 'Goodbye, World!!!'}) :
+            this.setState({_message: 'Hello, World!'});
+    }
+});
+module.exports = HelloWorld;
+```
+
+???
 
 why react?
 b/c it fulfills the DOM production aspect, regardless of context.
@@ -316,22 +551,110 @@ Use React components for the View layer.
 * context-agnostic
 * can emit HTML strings
 
----
-
-# Routing
-
-`ReactRouter` was chosen because it is modeled after Ember's robust routing system.
 
 ---
 
-# Server-Side Rendering (UI Server)
+
+# Component: Footer
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var Footer = React.createClass({
+    render: function () {
+        return (
+            <footer>
+                <p>&copy; 2014 @radishmouse: {this.props.timeStamp}</p>
+            </footer>
+        );
+    }
+});
+
+module.exports = Footer;
+```
+
+---
+
+# Static Version
+
+```html
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>isomorphic demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="stylesheets/application.css">
+    </head>
+    <body>
+        <script src="scripts/bundle.js"></script>
+    </body>
+</html>
+```
+
+
+---
+
+# Server-Side Rendering
+
+```js
+var express = require('express');
+var webapp = express();
+var path = require('path');
+var React = require('react');
+require('node-jsx').install(); // Compile JSX on the fly
+var Router = require('react-router');
+var AppRoutes = require('../src/routes');
+
+webapp.get('*', function (req, res) {
+    Router.renderRoutesToString(AppRoutes, req.path, function (err, reason, string) {
+        var htmlString = '<!doctype html><html><head></head><body>';
+        htmlString += string;
+        htmlString += '<script src="scripts/bundle.js"></script>';
+        htmlString += '</body></html>';
+        res.send(htmlString);
+    });
+});
+
+var PORT = 1337;
+webapp.listen(PORT);
+console.log('Listening on ' + PORT);
+```
+
+???
+
 
 The Express application can compile the components as needed.
 The components are rendered to an their HTML representation.
 
+
 ---
 
-# Rendering the Router component (an aside)
+# Aside: React.renderComponentToString
+
+```js
+var express = require('express');
+var webapp = express();
+var path = require('path');
+var React = require('react');
+require('node-jsx').install(); // Compile JSX on the fly
+* var App = require('../src/app');
+
+webapp.get('*', function (req, res) {
+    var htmlString = '<!doctype html><html><head></head><body>';
+*    htmlString += React.renderComponentToString(App());
+    htmlString += '<script src="scripts/bundle.js"></script>';
+    htmlString += '</body></html>';
+    res.send(htmlString);
+});
+
+var PORT = 1337;
+webapp.listen(PORT);
+console.log('Listening on ' + PORT);
+```
+
+
+???
 
 Routing is duplicated on the server using our custom `ReactRouter` component.
 We could not it render on the server the way that regular React components are rendered to HTML.
@@ -340,11 +663,13 @@ We could not it render on the server the way that regular React components are r
 
 # Models and Controllers
 
+???
+
 Flux Stores are used instead of a traditional (mutative) Model layer (such as Backbone.Model).
 
 Dispatchers and Actions replace controllers.
 
----
+???
 
 # Rendering Components with initial data (aside)
 
