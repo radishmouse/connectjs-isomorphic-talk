@@ -187,11 +187,6 @@ using data retrieved from a remote API.
 
 ![](img/06c.Complexity.png)
 
-???
-
-* js and all assets need to download
-* then it has to grab remote data
-* takes too long for initial presentation of data
 
 ---
 
@@ -199,7 +194,12 @@ using data retrieved from a remote API.
 
 ![](img/06.Problem1.png)
 
---
+
+???
+
+* js and all assets need to download
+* then it has to grab remote data
+* takes too long for initial presentation of data
 
 # Partially solved with frameworks
 
@@ -209,7 +209,7 @@ using data retrieved from a remote API.
 
 ![](img/07.Problem2.png)
 
---
+???
 
 # Partially solved with build tools
 
@@ -217,14 +217,16 @@ using data retrieved from a remote API.
 
 # Problem 3: Duplicated Efforts
 
---
+![](img/08.Problem3.png)
+
+???
 
 # Not really solved
 
 ---
 template: cover
 
-# A Possible Solution
+# (Possible) Solutions
 
 ???
 
@@ -234,16 +236,27 @@ template: cover
 
 How do we go from where we are to where we want to be?
 ---
-# Simplify the mental model
+# 1: Simplify the mental model
+
+* Frameworks for patterns and conventions
+
+* Build Tools for compiling abstraction languages
 
 ---
 
-# Render deep links on the server
+# 2: Render deep links on the server
+
+* JavaScript on both browser and server
+
+* Render view layer to HTML string
 
 ---
 
-# Divide and conquer
+# 3: Divide and conquer
 
+* Secondary UI Server handles static rendering
+
+* Aggregates API calls and caches data
 
 
 ???
@@ -921,7 +934,13 @@ The components are rendered to an their HTML representation.
 ---
 
 
-# Models and Controllers
+# Models and Controllers: Flux
+
+* Store
+
+* Dispatcher
+
+* Actions
 
 ???
 
@@ -937,7 +956,14 @@ On the server, we inject the initial data for the stores via a global variable.
 
 ---
 
-# HTTP/XHR (aside about the thing that talks to API)
+# Isomorphic Library: SuperAgent
+
+Take one of our Stores, and wire it up with SuperAgent
+
+The server doesn't actually need to .post anything, just .get stuff from
+the remote server
+
+bonus: add caching
 
 we are highlighting the use of an isomorphic library, superagent
 
@@ -949,13 +975,38 @@ If appropriate, cache the data per screen on the server-side.
 
 template: cover
 
-# And...so:
+# Wins
 
 ---
 
-# Winning
+# Focused Development Energy
 
-(break this into multiple slides)
+--
+
+* Single JavaScript codebase
+
+--
+
+* API developers no longer concerned with UI
+
+
+---
+
+# React + Flux
+
+--
+
+* Simple patterns that scale
+
+--
+
+* Side-steps issues with data-binding
+
+--
+
+* Simple server-side rendering of deep links
+
+???
 
 * What is the payoff after using this complicated setup?
     * The React/Flux stack was designed with scaling development by simplifying the mental model
@@ -967,6 +1018,27 @@ template: cover
             * Per-screen API calls can be aggregated and cached on the Node server
             * Component-based styling lends itself to styleguide driven development
 
+---
+
+# Affordances for Designers and UI Engineers
+
+--
+
+* Components allow for atomic design
+
+--
+
+* JSX is familiar
+
+--
+
+* Synchronized device testing
+
+--
+
+* Components usable for styleguide-driven development
+
+???
 
 * Implications on design
     * the JSX in /src/components lends itself to atomic design
@@ -984,9 +1056,65 @@ template: cover
         * Jest for unit tests
         * [Huxley](https://github.com/facebook/huxley) for visual regression
 
+
 ---
 
-# Still climbing
+# User sees stuff, sooner
+
+--
+
+* DOM pre-rendered
+
+--
+
+* Lower latency from UI server caching
+
+--
+
+* Reduced rendering overhead
+
+---
+
+template: cover
+# Tradeoffs
+
+---
+
+# Not an established ecosystem
+
+--
+
+* Some assembly required
+
+--
+
+* Smaller community
+
+--
+
+* No Training or books
+
+---
+
+# Not an established ecosystem, but...
+
+--
+
+* Examples exist: [bit.ly/isojs-demo](bit.ly/isojs-demo)
+
+* Setup is `npm install && gulp`
+
+
+--
+
+* Community is combination of Node.js and Front End developers
+
+--
+
+* Big Nerd Ranch offers training for Cross-Platform JavaScript Apps
+
+
+???
 
 (break up)
 
@@ -1000,6 +1128,7 @@ template: cover
             * including this one
     * Training? Books?
         * Big Nerd Ranch's Cross-Platform JavaScript Apps course is available, with Isomorphic techniques
+
 
 ---
 
