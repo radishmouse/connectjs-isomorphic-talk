@@ -126,10 +126,11 @@ nav > ul > li {
   padding: 0; }
 
 ul {
-  margin: 0 0 0 35px;
+  margin: 2em 0 0 35px;
   padding: 0; }
 
 li {
+  font-size: 1.6em;
   padding-bottom: 0.25em; }
   li a:hover {
     text-decoration: none; }
@@ -185,7 +186,7 @@ a {
 .skin-color-light-blue {
   background: #eaf3f8; }
 
-.skin-color-green, .remark-slide-content.s-inverse {
+.skin-color-green {
   background: #747501; }
 
 .skin-color-white, .remark-slide-content {
@@ -196,6 +197,12 @@ a {
 
 .skin-color-mid-gray {
   background: #666666; }
+
+.skin-color-dark-gray {
+  background: #4d4d4d; }
+
+.cover-skin-color, .remark-slide-content.s-inverse {
+  background: gray; }
 
 .skin-color-transparent {
   background: transparent; }

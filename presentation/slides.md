@@ -1123,9 +1123,7 @@ module.exports = {
             _data = res.body;
             ActionCreator.receiveAll(_data);
         });
-
     }
-
 };
 ```
 
@@ -1153,9 +1151,7 @@ module.exports = {
             _data = res.body;
 *            ActionCreator.receiveAll(_data);
         });
-
     }
-
 };
 ```
 

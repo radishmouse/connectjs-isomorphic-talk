@@ -85,12 +85,13 @@ nav > ul > li {
 
 ul {
   @extend %clearfix;
-  margin: 0 0 0 35px;
+  margin: 2em 0 0 35px;
   padding: 0;
 }
 
 li {
   // list-style-image: url('../img/bullet.png');
+  font-size: 1.6em;
   padding-bottom: 0.25em;
   a:hover {
     text-decoration: none;
