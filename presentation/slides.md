@@ -1063,7 +1063,7 @@ template: cover
 
 --
 
-* DOM pre-rendered
+* HTML pre-rendered with data
 
 --
 
@@ -1092,7 +1092,7 @@ template: cover
 
 --
 
-* No Training or books
+* No training or books
 
 ---
 
@@ -1134,7 +1134,7 @@ template: cover
 
 template: cover
 
-# Thank you!
+# Thank you for listening!
 
 ![](img/ihgFYuzcRBqXg.gif)
 
