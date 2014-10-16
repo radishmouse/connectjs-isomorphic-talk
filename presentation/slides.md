@@ -416,12 +416,76 @@ var Router = require('react-router');
 var Route = Router.Route;
 var Routes = Router.Routes;
 var DefaultRoute = Router.DefaultRoute;
+
+
+
+
+
+
+var routes = (
+
+
+
+
+
+
+
+
+
+);
+
+module.exports = routes;
+```
+
+---
+
+# Component: Router
+
+```js
+/** @jsx React.DOM */
+var Router = require('react-router');
+var Route = Router.Route;
+var Routes = Router.Routes;
+var DefaultRoute = Router.DefaultRoute;
 var App = require('./App');
 var HelloWorld = require('./components/hello');
 var About = require('./components/about');
 var Yep = require('./components/yep');
 var routes = (
-    <Routes location={ 'history' } scrollBehavior="browser">
+
+
+
+
+
+
+
+
+
+
+);
+
+module.exports = routes;
+```
+
+???
+
+`ReactRouter` was chosen because it is modeled after Ember's robust routing system.
+---
+
+# Component: Router
+
+```js
+/** @jsx React.DOM */
+var Router = require('react-router');
+var Route = Router.Route;
+var Routes = Router.Routes;
+var DefaultRoute = Router.DefaultRoute;
+var App = require('./App');
+var HelloWorld = require('./components/hello');
+var About = require('./components/about');
+var Yep = require('./components/yep');
+var routes = (
+    <Routes location="history" scrollBehavior="browser">
         <Route name="app" path="/" handler={App}>
             <Route name="yep" handler={Yep}></Route>
             <Route name="about" handler={About}></Route>
@@ -435,8 +499,184 @@ module.exports = routes;
 
 ???
 
-`ReactRouter` was chosen because it is modeled after Ember's robust routing system.
 ---
+# Component: Router
+
+```js
+/** @jsx React.DOM */
+var Router = require('react-router');
+var Route = Router.Route;
+var Routes = Router.Routes;
+var DefaultRoute = Router.DefaultRoute;
+* var App = require('./App');
+var HelloWorld = require('./components/hello');
+var About = require('./components/about');
+var Yep = require('./components/yep');
+var routes = (
+    <Routes location="history" scrollBehavior="browser">
+*        <Route name="app" path="/" handler={App}>
+            <Route name="yep" handler={Yep}></Route>
+            <Route name="about" handler={About}></Route>
+            <DefaultRoute handler={HelloWorld}></DefaultRoute>
+        </Route>
+    </Routes>
+);
+
+module.exports = routes;
+```
+
+???
+
+---
+
+# Component: Router
+
+```js
+/** @jsx React.DOM */
+var Router = require('react-router');
+var Route = Router.Route;
+var Routes = Router.Routes;
+var DefaultRoute = Router.DefaultRoute;
+var App = require('./App');
+var HelloWorld = require('./components/hello');
+var About = require('./components/about');
+var Yep = require('./components/yep');
+var routes = (
+    <Routes location="history" scrollBehavior="browser">
+        <Route name="app" path="/" handler={App}>
+*            <Route name="yep" handler={Yep}></Route>
+*            <Route name="about" handler={About}></Route>
+            <DefaultRoute handler={HelloWorld}></DefaultRoute>
+        </Route>
+    </Routes>
+);
+
+module.exports = routes;
+```
+
+???
+
+---
+
+# Component: Router
+
+```js
+/** @jsx React.DOM */
+var Router = require('react-router');
+var Route = Router.Route;
+var Routes = Router.Routes;
+var DefaultRoute = Router.DefaultRoute;
+var App = require('./App');
+var HelloWorld = require('./components/hello');
+var About = require('./components/about');
+var Yep = require('./components/yep');
+var routes = (
+    <Routes location="history" scrollBehavior="browser">
+        <Route name="app" path="/" handler={App}>
+            <Route name="yep" handler={Yep}></Route>
+            <Route name="about" handler={About}></Route>
+*            <DefaultRoute handler={HelloWorld}></DefaultRoute>
+        </Route>
+    </Routes>
+);
+
+module.exports = routes;
+```
+
+???
+
+---
+
+# Component: App
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+
+
+
+
+var App = React.createClass({
+    render: function () {
+        return (
+            <section>
+
+
+
+
+
+            </section>
+        );
+    },
+
+
+
+
+});
+module.exports = App;
+```
+
+---
+
+
+# Component: App
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+*var Header = require('./components/header');
+*var Footer = require('./components/footer');
+*var HelloWorld = require('./components/hello');
+var App = React.createClass({
+    render: function () {
+        return (
+            <section>
+
+
+
+
+
+            </section>
+        );
+    },
+
+
+
+
+});
+module.exports = App;
+```
+
+---
+
+# Component: App
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var Header = require('./components/header');
+var Footer = require('./components/footer');
+var HelloWorld = require('./components/hello');
+var App = React.createClass({
+    render: function () {
+        return (
+            <section>
+*                <Header />
+*                <HelloWorld />
+*                <Footer />
+            </section>
+        );
+    },
+
+
+
+
+});
+module.exports = App;
+```
+
+---
+
 
 # Component: App
 
@@ -452,15 +692,35 @@ var App = React.createClass({
             <section>
                 <Header />
                 <HelloWorld />
-                <Footer timeStamp={this._timeStamp()}/>
+*                <Footer timeStamp={this._timeStamp()}/>
             </section>
         );
     },
-    _timeStamp: function () {
-        return (new Date()).getTime();
-    }
+*    _timeStamp: function () {
+*        return (new Date()).getTime();
+*    }
 });
 module.exports = App;
+```
+
+---
+
+# Component: Footer
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var Footer = React.createClass({
+    render: function () {
+        return (
+            <footer>
+*                <p>&copy; 2014 @radishmouse: {this.props.timeStamp}</p>
+            </footer>
+        );
+    }
+});
+
+module.exports = Footer;
 ```
 
 ---
@@ -469,13 +729,13 @@ module.exports = App;
 
 ```js
 /** @jsx React.DOM */
-var Nav = require('./nav');
+*var Nav = require('./nav');
 
 var React = require('react');
 var Header = React.createClass({
     render: function () {
         return (
-            <Nav />
+*            <Nav />
         );
     }
 });
@@ -491,16 +751,16 @@ module.exports = Header;
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
-var Link = Router.Link;
+*var Link = Router.Link;
 
 var Nav = React.createClass({
     render: function () {
         return (
             <nav>
                 <ul>
-                    <li><Link to="app">Hello</Link></li>
-                    <li><Link to="yep">Yep</Link></li>
-                    <li><Link to="about">About</Link></li>
+*                   <li><Link to="app">Hello</Link></li>
+*                   <li><Link to="yep">Yep</Link></li>
+*                   <li><Link to="about">About</Link></li>
                 </ul>
             </nav>
         );
@@ -525,7 +785,7 @@ var HelloWorld = React.createClass({
     },
     render: function () {
         return (
-            <h1 onClick={this._changeMessage}>{this.state._message}</h1>
+*            <h1 onClick={this._changeMessage}>{this.state._message}</h1>
         );
     },
     _changeMessage: function () {
@@ -555,25 +815,6 @@ Use React components for the View layer.
 ---
 
 
-# Component: Footer
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-var Footer = React.createClass({
-    render: function () {
-        return (
-            <footer>
-                <p>&copy; 2014 @radishmouse: {this.props.timeStamp}</p>
-            </footer>
-        );
-    }
-});
-
-module.exports = Footer;
-```
-
----
 
 # Static Version
 
@@ -603,42 +844,7 @@ var webapp = express();
 var path = require('path');
 var React = require('react');
 require('node-jsx').install(); // Compile JSX on the fly
-var Router = require('react-router');
-var AppRoutes = require('../src/routes');
-
-webapp.get('*', function (req, res) {
-    Router.renderRoutesToString(AppRoutes, req.path, function (err, reason, string) {
-        var htmlString = '<!doctype html><html><head></head><body>';
-        htmlString += string;
-        htmlString += '<script src="scripts/bundle.js"></script>';
-        htmlString += '</body></html>';
-        res.send(htmlString);
-    });
-});
-
-var PORT = 1337;
-webapp.listen(PORT);
-console.log('Listening on ' + PORT);
-```
-
-???
-
-
-The Express application can compile the components as needed.
-The components are rendered to an their HTML representation.
-
-
----
-
-# Aside: React.renderComponentToString
-
-```js
-var express = require('express');
-var webapp = express();
-var path = require('path');
-var React = require('react');
-require('node-jsx').install(); // Compile JSX on the fly
-* var App = require('../src/app');
+*var App = require('../src/app');
 
 webapp.get('*', function (req, res) {
     var htmlString = '<!doctype html><html><head></head><body>';
@@ -660,6 +866,41 @@ Routing is duplicated on the server using our custom `ReactRouter` component.
 We could not it render on the server the way that regular React components are rendered to HTML.
 
 ---
+# Server-Side Rendering
+
+```js
+var express = require('express');
+var webapp = express();
+var path = require('path');
+var React = require('react');
+require('node-jsx').install(); // Compile JSX on the fly
+var Router = require('react-router');
+*var AppRoutes = require('../src/routes');
+
+webapp.get('*', function (req, res) {
+*    Router.renderRoutesToString(AppRoutes, req.path, function (err, reason, string) {
+        var htmlString = '<!doctype html><html><head></head><body>';
+*        htmlString += string;
+        htmlString += '<script src="scripts/bundle.js"></script>';
+        htmlString += '</body></html>';
+        res.send(htmlString);
+    });
+});
+
+var PORT = 1337;
+webapp.listen(PORT);
+console.log('Listening on ' + PORT);
+```
+
+???
+
+
+The Express application can compile the components as needed.
+The components are rendered to an their HTML representation.
+
+
+---
+
 
 # Models and Controllers
 
