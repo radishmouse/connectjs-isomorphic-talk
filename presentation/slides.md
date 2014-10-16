@@ -15,19 +15,32 @@ layout: false
 
 template: cover
 
+# Front end development has gotten complex.
 
-# (stating the problem) Ultimately, the goal is DOM production
-## followed by a short history of how we have done this
+???
+
+How do we choose among all the tools, frameworks, and libraries?
+Of which there are more and more each week.
+
+
+---
+
+template: cover
+
+# Are we actually doing a better job?
+
+???
+
+(stating the problem) Ultimately, the goal is getting the browser to render a DOM
 
 why am i showing the history?
 what problem were we solving (whose by product is all the complexity we're dealing with as developers)
 
-* the needs and expectations of the user increased, so we shifted the logic to the browser
-
-
+the needs and expectations of the user increased, so we shifted the logic to the browser
 
 * competing with desktop
-* then, competing with smartphone apps
+* then, competing with native apps
+
 * we're providing the user with immersion, cohesion, and integration (partially a time thing. faster access to collaborative data)
 
 ---
@@ -102,7 +115,7 @@ Software engineering practices come to JavaScript.
 
 template: cover
 
-# What's in a Single Page App?
+# Anatomy of an MVC Application
 
 ---
 
@@ -152,24 +165,27 @@ using data retrieved from a remote API.
 
 ![](img/05e.MVC.png)
 
-
----
-template: cover
-
-# Problems arise
-
 ---
 
-# Complexity
+# MV* in the Browser
 
-![](img/04.JSMVC.png)
-
+![](img/05f.MVC.png)
 
 ---
 
-# Complexity
+# Shifting Responsibility
 
-![](img/06.Problem1.png)
+![](img/06a.Complexity.png)
+---
+
+# Shifting Responsibility
+
+![](img/06b.Complexity.png)
+---
+
+# Shifting Responsibility
+
+![](img/06c.Complexity.png)
 
 ???
 
@@ -177,104 +193,44 @@ template: cover
 * then it has to grab remote data
 * takes too long for initial presentation of data
 
+---
 
+# Problem 1: Complexity
+
+![](img/06.Problem1.png)
+
+--
+
+# Partially solved with frameworks
 
 ---
 
-# Frameworks organize your application code
-
---
-
-* Abstractions
-
---
-
-* Conventions
-
---
-
-* Community
-
-
-???
-
-
-Frameworks make organize your application.
-By standardizing the patterns and conventions you use.
-
-To wrangle the complexity, we add more layers of abstraction and standardize the conventions, which increases the overall complexity, but reduces the amount of complexity for the day-to-day work of a developer
-
-solve some of the problems, but not all
-
----
-
-# Build Tools organize your development process
-
---
-
-* Manage dependencies
-
---
-
-* Optimize assets
-
---
-
-* Transpile and/or Precompile
-
-
-???
-
-Makes it easier to operate at an even higher level of abstraction.
-
-Build tools organize your development process.
-
-Build tools and frameworks shim the development environment.
-
----
-
-template: cover
-
-# Congratulations! Next?
-
-???
-
-With frameworks and build tools, you've shimmed away the complexities.
-
----
-
-
-
-# Performance and Per-screen requests
+# Problem 2: Latency
 
 ![](img/07.Problem2.png)
 
+--
+
+# Partially solved with build tools
+
+---
+
+# Problem 3: Duplicated Efforts
+
+--
+
+# Not really solved
+
+---
+template: cover
+
+# A Possible Solution
+
 ???
 
-
-The front end now replicates the kind of DOM production formerly done by back end frameworks.
-
-They can now move towards APIs.
-
-But, the APIs should not need to know about what's on a screen.
-
-By the same token, we should not weigh down the client with too many API requests to assemble the data needed for any single screen.
-
-
----
-template: cover
-
-# So, what can we do?
-
----
-
-template: cover
-
-# Going Isomorphic
 ## this section needs to be about the isomorphic architecture, with a diagram on the very first slide
 ## The next slide needs a statement of goals.
 
-???
 
 How do we go from where we are to where we want to be?
 ---
@@ -466,7 +422,7 @@ template: cover
 
 # Thank you!
 
-![cute cat gif here]()
+![](img/ihgFYuzcRBqXg.gif)
 
 ## @radishmouse, @bignerdranch
 
