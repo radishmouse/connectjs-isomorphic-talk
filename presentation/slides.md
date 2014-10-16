@@ -286,6 +286,15 @@ template: cover
 
 ---
 
+# Build Tool
+
+* JavaScript-based
+
+* Pipeline-oriented
+
+* Modular
+
+---
 
 # Gulp
 
@@ -325,39 +334,8 @@ Used in combination, you write simple modules, which are bundled into a single J
 
 ---
 
-# Browserify
 
-```js
-var gulp = require('gulp');
-var browserify = require('browserify');
-var reactify = require('reactify');
-var source = require('vinyl-source-stream');
-
-module.exports = function (src, bundleName, dest) {
-    return function () {
-        var b = browserify({
-            detectGlobals : true
-        });
-        b.transform(reactify);
-        b.add([src]);
-        return b.bundle()
-            .pipe(source(bundleName))
-            .pipe(gulp.dest(dest));
-    };
-};```
-
-
-
-???
-
-
-Provides Node style Modules as well as some Node APIs for the browser
-
-Alternatives: Webpack
-
----
-
-# BrowserSync
+# Live Reload: BrowserSync
 
 ```js
 // BrowserSync is a better live-reload + static server
@@ -391,6 +369,47 @@ BrowserSync will serve it and the bundled JavaScript to the browser, and it
 will reload the browser when changes are made to the application code.
 
 ---
+
+# Module System
+
+* Context-agnostic
+
+* Minimal Syntax (not require.js)
+
+---
+
+# Browserify
+
+```js
+var gulp = require('gulp');
+var browserify = require('browserify');
+var reactify = require('reactify');
+var source = require('vinyl-source-stream');
+
+module.exports = function (src, bundleName, dest) {
+    return function () {
+        var b = browserify({
+            detectGlobals : true
+        });
+        b.transform(reactify);
+        b.add([src]);
+        return b.bundle()
+            .pipe(source(bundleName))
+            .pipe(gulp.dest(dest));
+    };
+};```
+
+
+
+???
+
+
+Provides Node style Modules as well as some Node APIs for the browser
+
+Alternatives: Webpack
+
+---
+
 
 # Views: React Components
 
@@ -836,7 +855,7 @@ Use React components for the View layer.
 
 ---
 
-# Server-Side Rendering
+# Server-Side Rendering: React Component
 
 ```js
 var express = require('express');
@@ -866,7 +885,7 @@ Routing is duplicated on the server using our custom `ReactRouter` component.
 We could not it render on the server the way that regular React components are rendered to HTML.
 
 ---
-# Server-Side Rendering
+# Server-Side Rendering: React Router
 
 ```js
 var express = require('express');
