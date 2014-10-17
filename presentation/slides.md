@@ -644,7 +644,7 @@ They're really just functions
 ---
 template: cover
 
-# Example App: Views
+# Views
 
 ---
 
@@ -747,7 +747,7 @@ module.exports = App;
 
 template: cover
 
-# Example App: Routing
+# Routing
 
 ---
 
@@ -1177,7 +1177,7 @@ var Store = merge(EventEmitter.prototype, {
 });
 *Store.dispatchToken = AppDispatcher.register(function(payload) {
     _data = payload.action.rawData;
-    Store.emitChange();
+*    Store.emitChange();
 });
 module.exports = Store;
 ```
@@ -1273,7 +1273,7 @@ module.exports = {
 
     getAllNodes: function() {
 
-        // fake caching via intermediary variable
+
 *        ActionCreator.receiveAll(_data);
 
         request.get(URL, function (res){
