@@ -389,6 +389,7 @@ template: cover
 
 Where do we go from here?
 
+
 ---
 
 # Isomorphic JavaScript Application Architecture
@@ -406,9 +407,27 @@ delivers HTML straight to the browser
 
 and it can cache data from APIs
 
+
 ---
 
-# "Isomorphic"
+# bit.ly/isojs-demo
+
+![](img/github.png)
+
+???
+
+I've put together a demo project.
+
+Definition of "trivial" application
+
+But, it demonstrates each piece of the stack.
+
+And I'm going to walk you through it now.
+
+
+---
+
+# "Isomorphic" JavaScript
 
 --
 
@@ -416,11 +435,12 @@ and it can cache data from APIs
 
 --
 
-* UI code runs in browser or Node.js
+* Runs in browser or Node.js
 
 --
 
-* Network code runs in browser or Node.js
+* Render views to static HTML from Node.js
+
 
 ???
 
@@ -430,31 +450,14 @@ Also, any code that helps produce the DOM (populating it with data)
 
 can run from client or server.
 
----
-
-
-# bitly.com/isojs
-
-![](img/github.png)
-
-???
-
-I've put together a demo project.
-
-Nothing fancy.
-
-Definition of "trivial" application
-
+In order to make that work, you need...
 
 ---
 
-# Build Tool
+# Building and development
 
-* JavaScript-based
+![](img/11.build.png)
 
-* Pipeline-oriented
-
-* Modular
 
 ---
 
@@ -490,53 +493,7 @@ Alternatives: Grunt, Make, Cake, Rake, etc.
 
 
 Gulp provides a pipeline style task runner with a small API.
-Browserify allows you to create and use Node-style modules in your browser-based JavaScript.
 
-Used in combination, you write simple modules, which are bundled into a single JavaScript payload.
-
----
-
-
-# Live Reload: BrowserSync
-
-```js
-// BrowserSync is a better live-reload + static server
-var browserSync = require('browser-sync');
-
-function _sync(dir){
-    return function () {
-        browserSync({
-            open: false,
-            server: {
-                baseDir: dir,
-            }
-        });
-    };
-}
-
-module.exports = {
-    sync: _sync,
-    reload: browserSync.reload
-};
-```
-
-???
-
-want to guarantee parity between what is emitted by UI server and what is drawn by the static JS in-browser is the same. so, BS for development testing.
-
-diagram of what i mean by "parity"
-
-A basic `index.html` file will be the base of the application.
-BrowserSync will serve it and the bundled JavaScript to the browser, and it
-will reload the browser when changes are made to the application code.
-
----
-
-# Module System
-
-* Context-agnostic
-
-* Minimal Syntax (not require.js)
 
 ---
 
@@ -570,22 +527,261 @@ Provides Node style Modules as well as some Node APIs for the browser
 
 Alternatives: Webpack
 
+
+---
+
+template: cover
+
+![](img/logo_og.png)
+
+---
+
+# "A Javascript Library For Building User Interfaces"
+
+--
+
+* V in MVC
+
+--
+
+* Virtual DOM
+
+--
+
+* Data Flow
+
+--
+
+* Views can rendered to HTML strings
+
+---
+# MVC with React
+
+![](img/11.MVC-Isomorphic.png)
+
+???
+
+React will take the place of both our View layer
+
+and our Templates
+
+???
+
+
+To give you an idea of what a component looks like, here's one...
+---
+
+# "Hello World" Module
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var HelloWorld = React.createClass({
+    render: function () {
+
+
+
+
+
+
+
+    }
+});
+module.exports = HelloWorld;
+```
+
+---
+
+# "Hello World" Module
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var HelloWorld = React.createClass({
+    render: function () {
+        return (
+
+
+
+
+        );
+    }
+});
+module.exports = HelloWorld;
+```
+
 ---
 
 
-# Views: React Components
+# "Hello World" Module
 
---
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var HelloWorld = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <h1>Hello, Connect-JS!</h1>
+            </div>
+        );
+    }
+});
+module.exports = HelloWorld;
+```
 
-* Declarative
+???
 
---
+That's not HTML.
 
-* Composable
+It's JSX.
 
---
+That gets transformed in our build step
 
-* Performant
+They're really just functions
+
+
+---
+template: cover
+
+# Example App: Views
+
+---
+
+# View Component Structure
+
+![](img/12.ReactApp.png)
+
+
+---
+
+# View Component: App
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+
+
+
+
+var App = React.createClass({
+    render: function () {
+        return (
+            <section>
+
+
+
+
+
+            </section>
+        );
+    },
+
+
+
+
+});
+module.exports = App;
+```
+
+---
+
+
+# View Component: App
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+*var Header = require('./components/header');
+*var Footer = require('./components/footer');
+*var HelloWorld = require('./components/hello');
+var App = React.createClass({
+    render: function () {
+        return (
+            <section>
+
+
+
+
+
+            </section>
+        );
+    },
+
+
+
+
+});
+module.exports = App;
+```
+
+---
+
+# View Component: App
+
+```js
+/** @jsx React.DOM */
+var React = require('react');
+var Header = require('./components/header');
+var Footer = require('./components/footer');
+var HelloWorld = require('./components/hello');
+var App = React.createClass({
+    render: function () {
+        return (
+            <section>
+*                <Header />
+*                <HelloWorld />
+*                <Footer />
+            </section>
+        );
+    },
+
+
+
+
+});
+module.exports = App;
+```
+
+---
+
+template: cover
+
+# Example App: Routing
+
+---
+
+# Routing with React
+
+![](img/11.MVC-Isomorphic2.png)
+
+???
+
+We want to use React for Routing
+
+3 reasons
+
+First, we need for the router to load deeply nested routes
+
+Second, the router can render the nested route to HTML
+
+Third, we want to reuse the routing code in the browser and the server
+
+---
+
+# Routing with React
+
+![](img/12.ReactApp2.png)
+
+???
+
+So, as we load other components in place of HelloWorld
+
+The router can load those other components based on the route
+
+While still keeping it nested inside the App component
+
+alongside the header and footer components
 
 ---
 
@@ -617,6 +813,13 @@ var routes = (
 
 module.exports = routes;
 ```
+
+???
+
+Here's how you write the router module
+
+import the library code
+
 
 ---
 
@@ -650,7 +853,8 @@ module.exports = routes;
 
 ???
 
-`ReactRouter` was chosen because it is modeled after Ember's robust routing system.
+Then, import your App and the components that you can route between
+
 ---
 
 # Component: Router
@@ -680,6 +884,10 @@ module.exports = routes;
 
 ???
 
+Name your routes
+
+and specify what components handle each route
+
 ---
 # Component: Router
 
@@ -707,6 +915,10 @@ module.exports = routes;
 ```
 
 ???
+
+Notice that the App is the top level route
+
+It is situated at the root "/"
 
 ---
 
@@ -737,6 +949,8 @@ module.exports = routes;
 
 ???
 
+The other components are sub-routes
+
 ---
 
 # Component: Router
@@ -766,258 +980,17 @@ module.exports = routes;
 
 ???
 
----
-
-# Component: App
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-
-
-
-
-var App = React.createClass({
-    render: function () {
-        return (
-            <section>
-
-
-
-
-
-            </section>
-        );
-    },
-
-
-
-
-});
-module.exports = App;
-```
-
----
-
-
-# Component: App
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-*var Header = require('./components/header');
-*var Footer = require('./components/footer');
-*var HelloWorld = require('./components/hello');
-var App = React.createClass({
-    render: function () {
-        return (
-            <section>
-
-
-
-
-
-            </section>
-        );
-    },
-
-
-
-
-});
-module.exports = App;
-```
-
----
-
-# Component: App
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-var Header = require('./components/header');
-var Footer = require('./components/footer');
-var HelloWorld = require('./components/hello');
-var App = React.createClass({
-    render: function () {
-        return (
-            <section>
-*                <Header />
-*                <HelloWorld />
-*                <Footer />
-            </section>
-        );
-    },
-
-
-
-
-});
-module.exports = App;
-```
-
----
-
-
-# Component: App
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-var Header = require('./components/header');
-var Footer = require('./components/footer');
-var HelloWorld = require('./components/hello');
-var App = React.createClass({
-    render: function () {
-        return (
-            <section>
-                <Header />
-                <HelloWorld />
-*                <Footer timeStamp={this._timeStamp()}/>
-            </section>
-        );
-    },
-*    _timeStamp: function () {
-*        return (new Date()).getTime();
-*    }
-});
-module.exports = App;
-```
-
----
-
-# Component: Footer
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-var Footer = React.createClass({
-    render: function () {
-        return (
-            <footer>
-*                <p>&copy; 2014 @radishmouse: {this.props.timeStamp}</p>
-            </footer>
-        );
-    }
-});
-
-module.exports = Footer;
-```
-
----
-
-# Component: Header
-
-```js
-/** @jsx React.DOM */
-*var Nav = require('./nav');
-
-var React = require('react');
-var Header = React.createClass({
-    render: function () {
-        return (
-*            <Nav />
-        );
-    }
-});
-
-module.exports = Header;
-```
-
----
-
-# Component: Nav
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-var Router = require('react-router');
-*var Link = Router.Link;
-
-var Nav = React.createClass({
-    render: function () {
-        return (
-            <nav>
-                <ul>
-*                   <li><Link to="app">Hello</Link></li>
-*                   <li><Link to="yep">Yep</Link></li>
-*                   <li><Link to="about">About</Link></li>
-                </ul>
-            </nav>
-        );
-    }
-});
-
-module.exports = Nav;
-```
-
----
-
-# Component: HelloWorld
-
-```js
-/** @jsx React.DOM */
-var React = require('react');
-var HelloWorld = React.createClass({
-    getInitialState: function () {
-        return {
-            _message: 'Hello, World!'
-        };
-    },
-    render: function () {
-        return (
-*            <h1 onClick={this._changeMessage}>{this.state._message}</h1>
-        );
-    },
-    _changeMessage: function () {
-        return /Hello/.test(this.state._message) ?
-            this.setState({_message: 'Goodbye, World!!!'}) :
-            this.setState({_message: 'Hello, World!'});
-    }
-});
-module.exports = HelloWorld;
-```
-
-???
-
-why react?
-b/c it fulfills the DOM production aspect, regardless of context.
-
-(maybe on an earlier slide, i can make it more explicit what my goals are for isomorphic)
-
-Use React components for the View layer.
-
-* functions
-* composable
-* context-agnostic
-* can emit HTML strings
+And, you can define a default
 
 
 ---
 
-
-
-# Static Version
-
-```html
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>isomorphic demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="stylesheets/application.css">
-    </head>
-    <body>
-        <script src="scripts/bundle.js"></script>
-    </body>
-</html>
-```
-
+template: cover
+# Server-Side Rendering
 
 ---
 
-# Server-Side Rendering: React Component
+# Rendering for a route
 
 ```js
 var express = require('express');
@@ -1025,14 +998,21 @@ var webapp = express();
 var path = require('path');
 var React = require('react');
 require('node-jsx').install(); // Compile JSX on the fly
-*var App = require('../src/app');
+
+
+
 
 webapp.get('*', function (req, res) {
-    var htmlString = '<!doctype html><html><head></head><body>';
-*    htmlString += React.renderComponentToString(App());
-    htmlString += '<script src="scripts/bundle.js"></script>';
-    htmlString += '</body></html>';
-    res.send(htmlString);
+
+
+
+
+
+
+
+
+
+
 });
 
 var PORT = 1337;
@@ -1041,13 +1021,38 @@ console.log('Listening on ' + PORT);
 ```
 
 
-???
+---
+# Rendering for a route
 
-Routing is duplicated on the server using our custom `ReactRouter` component.
-We could not it render on the server the way that regular React components are rendered to HTML.
+```js
+var express = require('express');
+var webapp = express();
+var path = require('path');
+var React = require('react');
+require('node-jsx').install(); // Compile JSX on the fly
+*var Router = require('react-router');
+*var AppRoutes = require('../src/routes');
+
+webapp.get('*', function (req, res) {
+*    Router.renderRoutesToString(AppRoutes, req.path, function (err, reason, string) {
+
+
+
+
+
+
+
+    });
+});
+
+var PORT = 1337;
+webapp.listen(PORT);
+console.log('Listening on ' + PORT);
+```
+
 
 ---
-# Server-Side Rendering: React Router
+# Rendering for a route
 
 ```js
 var express = require('express');
@@ -1056,10 +1061,10 @@ var path = require('path');
 var React = require('react');
 require('node-jsx').install(); // Compile JSX on the fly
 var Router = require('react-router');
-*var AppRoutes = require('../src/routes');
+var AppRoutes = require('../src/routes');
 
 webapp.get('*', function (req, res) {
-*    Router.renderRoutesToString(AppRoutes, req.path, function (err, reason, string) {
+    Router.renderRoutesToString(AppRoutes, req.path, function (err, reason, string) {
         var htmlString = '<!doctype html><html><head></head><body>';
 *        htmlString += string;
         htmlString += '<script src="scripts/bundle.js"></script>';
@@ -1073,39 +1078,42 @@ webapp.listen(PORT);
 console.log('Listening on ' + PORT);
 ```
 
-???
-
-
-The Express application can compile the components as needed.
-The components are rendered to an their HTML representation.
-
 
 ---
 
+template: cover
 
-# Models and Controllers: Flux
+# Models and Controllers
 
-* Stores instead of Models
-* Controller-Views instead of Controllers
+???
+
+---
+
+# React all the things
+
+![](img/11.MVC-Isomorphic3.png)
+
+---
+
+# But...
 
 --
 
-* Actions are messages about data
-* Dispatcher manages all Actions
+![](img/09.flux.png)
 
----
+???
 
-# Flux Architecture: Overview
+Instead of traditional MVC
 
-![](img/09a.flux.png)
+You have a one-way data flow through the app
 
----
+Stores instead of Models
 
-# Flux Architecture: Overview
+Other Views instead of Controllers
 
+Actions wrap all data from ui events or server events
 
-![](img/09b.flux.png)
-
+Dispatcher manages all Actions
 
 
 ---
@@ -1117,20 +1125,10 @@ var Dispatcher = require('flux').Dispatcher;
 var copyProperties = require('react/lib/copyProperties');
 var AppDispatcher = copyProperties(new Dispatcher(), {
 
-    handleServerAction: function(action) {
-        var payload = {
-            source: 'SERVER_ACTION',
-            action: action
-        };
-        this.dispatch(payload);
-    },
-    handleViewAction: function(action) {
-        var payload = {
-            source: 'VIEW_ACTION',
-            action: action
-        };
-        this.dispatch(payload);
+*    handleServerAction: function(action) {
+        /* ... */
     }
+    ...
 });
 
 module.exports = AppDispatcher;
@@ -1139,15 +1137,7 @@ module.exports = AppDispatcher;
 
 ???
 
-Flux Stores are used instead of a traditional (mutative) Model layer (such as Backbone.Model).
-
-Dispatchers and Actions replace controllers.
-
-???
-
-# Rendering Components with initial data (aside)
-
-On the server, we inject the initial data for the stores via a global variable.
+You defined custom handlers on the Dispatcher
 
 ---
 
@@ -1158,13 +1148,22 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 module.exports = {
     receiveAll: function(rawData) {
+
 *        AppDispatcher.handleServerAction({
             type: "RECEIVE_DATA",
             rawData: rawData
         });
+
     }
 };
 ```
+
+???
+
+You call your custom handlers from Actions
+
+and send them any data
+
 
 ---
 
@@ -1174,99 +1173,75 @@ module.exports = {
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 ...
 var Store = merge(EventEmitter.prototype, {
-    emitChange: function() {
-        this.emit(CHANGE_EVENT);
-    },
-    addChangeListener: function(callback) {
-        this.on(CHANGE_EVENT, callback);
-    }
+    /* ... */
 });
 *Store.dispatchToken = AppDispatcher.register(function(payload) {
-    var action = payload.action;
-    switch(action.type) {
-        case "RECEIVE_DATA":
-            _data = action.rawData;
-            Store.emitChange();
-        break;
-        default: // do nothing
-    }
+    _data = payload.action.rawData;
+    Store.emitChange();
 });
 module.exports = Store;
 ```
 
+???
+
+Stores, instead of models
+
+register to receive data from actions
+
+
 ---
 
 #Flux Architecture: Views Subscribing to Stores
 
 ```js
 ...
-var Yep = React.createClass({
-    getInitialState: function() {
-        return getStateFromStore();
-    },
+var HelloWorld = React.createClass({
+
     componentDidMount: function() {
 *      Store.addChangeListener(this._onChange);
-    },
-    componentWillUnmount: function() {
-*      Store.removeChangeListener(this._onChange);
     },
 
     render: function () {...},
 
-    _onChange: function () {
-*        this.setState(getStateFromStore());
+*    _onChange: function () {
+        /* ... */
     }
 });
 
-module.exports = Yep;
+module.exports = HelloWorld;
 
 ```
 
 ---
-#Flux Architecture: Views Subscribing to Stores
 
-```js
-...
-var Yep = React.createClass({
-...
-    render: function () {
-*        var nodes = Object.keys(this.state.data).map(function (key) {
-            var datum = this.state.data[key];
-            return <p key={datum._id}> {datum.name}: {datum.price}</p>;
-        }.bind(this));
-        return (
-            <div>
-                <h1>Yep</h1>
-*                {nodes}
-            </div>
+# One way data flow
 
-        );
-    },
-...
-});
 
-module.exports = Yep;
+![](img/09.flux.png)
 
-```
 ---
 
-# Isomorphic Library: SuperAgent
+template: cover
+
+# Isomorphic Libraries
+
+---
+
+# SuperAgent
 
 ```js
 var ActionCreator = require('../actions/ActionCreator');
 var request = require('superagent');
 var URL = 'http://my.remote.server/endpoint';
 
-var _data = [{
-    name: 'placholder',
-    price: '1'
-}];
+var _data = [];
 module.exports = {
 
     getAllNodes: function() {
 
-        // fake caching via intermediary variable
-        ActionCreator.receiveAll(_data);
+
+
+
 
 *        request.get(URL, function (res){
             _data = res.body;
@@ -1276,6 +1251,14 @@ module.exports = {
 };
 ```
 
+???
+
+Example of an isomorphic library
+
+API is the same whether on browser or Node.js
+
+Library detects its environment and does the right thing
+
 ---
 
 # Isomorphic Library: SuperAgent
@@ -1285,10 +1268,7 @@ var ActionCreator = require('../actions/ActionCreator');
 var request = require('superagent');
 var URL = 'http://my.remote.server/endpoint';
 
-var _data = [{
-    name: 'placholder',
-    price: '1'
-}];
+var _data = [];
 module.exports = {
 
     getAllNodes: function() {
@@ -1298,7 +1278,7 @@ module.exports = {
 
         request.get(URL, function (res){
             _data = res.body;
-*            ActionCreator.receiveAll(_data);
+            ActionCreator.receiveAll(_data);
         });
     }
 };
@@ -1306,16 +1286,12 @@ module.exports = {
 
 
 ???
-Take one of our Stores, and wire it up with SuperAgent
-
-The server doesn't actually need to .post anything, just .get stuff from
-the remote server
 
 bonus: add caching
 
-we are highlighting the use of an isomorphic library, superagent
+when the data is requested, we send out what we already have
 
-Retrieve the data from the remote host from either the server or the client.
+once the request comes back, we send out the new data
 
 If appropriate, cache the data per screen on the server-side.
 
@@ -1380,29 +1356,9 @@ template: cover
 
 --
 
-* Synchronized device testing
-
---
-
 * Components usable for styleguide-driven development
 
 ???
-
-* Implications on design
-    * the JSX in /src/components lends itself to atomic design
-    * after the stack is installed (via `npm install`, BrowserSync provides a way to test your design on multiple devices simultaneously
-        * you could use fixture data
-        * and one could add automated screenshots
-    * you could create prototypes relatively quickly by:
-        * serving stubbed out .json files from `/api-static`
-        * using lo-fi CSS coupled with pre-built standard components
-            * (similar to react-bootstrap)
-* How easy is it to do TDD with this style of development? (That is, won't you have to test everything twice to make sure that the server-side rendering and browser rendering of components is the same?)
-    * Testing the changes that occur during user interaction is the same.
-    * Testing load of deep linking is what needs to be duplicated
-    * Otherwise, there are tools (yes, from Facebook) that work well with React/Flux based stack
-        * Jest for unit tests
-        * [Huxley](https://github.com/facebook/huxley) for visual regression
 
 
 ---
@@ -1412,10 +1368,6 @@ template: cover
 --
 
 * HTML pre-rendered with data
-
---
-
-* Lower latency from UI server caching
 
 --
 
@@ -1466,17 +1418,13 @@ template: cover
 
 (break up)
 
-* And what are the tradeoffs?
-    * It's not an already established ecosystem (outside of places like Facebook or AirBnB) like Embularbone
-        * You can't just it up and build an app with a dozen lines of configuration
-        * But, at the same time, there is no magic, no mystery about the way it works.
-            * The ecosystem is largey npm
-    * Getting the stack set up is tricky
-        * There are a few sample projects on github
-            * including this one
-    * Training? Books?
-        * Big Nerd Ranch's Cross-Platform JavaScript Apps course is available, with Isomorphic techniques
+I'll be adding on to my example code, you can fork or send pull requests
 
+Community also includes folks at Yahoo, Facebook, and AirBnB who are already doing isomorphic apps
+
+You can always ping me if you want to talk about JavaScript.
+
+I'm planning on incorporating some of these techniques into the BNR class
 
 ---
 
