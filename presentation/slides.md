@@ -4,12 +4,48 @@ template: cover
 # Building Blocks for Isomorphic JavaScript Apps
 ## Chris Aquino, Big Nerd Ranch
 
+???
+
+excited
+
+first connect-js
+
 ---
 
 class: middle, center
 layout: false
 
 ![](img/bnr-logo.png)
+
+???
+
+big nerd ranch
+
+training
+
+app development
+
+director of front end web
+
+favorite part of job...
+
+
+---
+# Arbitrarily ridiculous photo of me
+
+![](img/me.png)
+
+???
+
+is playing ping pong
+
+my second favorite
+
+researching techniques
+
+make my team more effective
+
+when I'm doing research...
 
 ---
 
@@ -19,8 +55,13 @@ template: cover
 
 ???
 
-How do we choose among all the tools, frameworks, and libraries?
-Of which there are more and more each week.
+realize stuff has gotten complicated
+
+and it's only getting more complicated
+
+before I contribute to that
+
+let's take a step back and ask...
 
 
 ---
@@ -31,17 +72,11 @@ template: cover
 
 ???
 
-(stating the problem) Ultimately, the goal is getting the browser to render a DOM
 
-why am i showing the history?
-what problem were we solving (whose by product is all the complexity we're dealing with as developers)
+I don't know.
 
-the needs and expectations of the user increased, so we shifted the logic to the browser
+Let's take a look.
 
-* competing with desktop
-* then, competing with native apps
-
-* we're providing the user with immersion, cohesion, and integration (partially a time thing. faster access to collaborative data)
 
 ---
 
@@ -55,8 +90,10 @@ layout: false
 ???
 
 One file, one page.
+
 Human writes HTML.
-Browser renders it.
+
+Browser renders it to a DOM.
 
 ---
 
@@ -66,9 +103,15 @@ Browser renders it.
 
 ???
 
-Support dynamic data, without manually creating new pages
-Human writes algorithm to write HTML using data from database.
-Browser renders it.
+Dynamic data
+
+write code
+
+mashes it up with HTML
+
+send it down the wire
+
+Browser renders it to a DOM.
 
 ---
 
@@ -78,10 +121,17 @@ Browser renders it.
 
 ???
 
-Software engineering practices come to web servers.
-Humans create workflows in code form.
-Workflows result in HTML.
-Browser renders it.
+Next version
+
+software engineering best practices
+
+come to web development
+
+processes and workflows
+
+result in HTML
+
+Browser renders it to a DOM.
 
 
 ---
@@ -92,15 +142,21 @@ Browser renders it.
 
 ???
 
-To increase the "interactivty" on a page, humans employ Ajax.
-Whole chunks of HTML are retrieved from server.
-Or, XML or JSON data is retrieved from server.
+2005
 
-In the case of XML or JSON, the DOM elements are created via JavaScript.
-This JavaScript is written either by a human, or is incorporated
-into the framework (Rails is writing the JS for the Ajax).
+Designer: Jesse James Garret
 
-Marks the advent of browser-based thick clients.
+technique to increase increase interactivity
+
+fewer page reloads
+
+more dynamic pages
+
+Server delivers some HTML
+
+Browser renders it to DOM
+
+JavaScript modifies that DOM in some way.
 
 ---
 
@@ -109,7 +165,15 @@ Marks the advent of browser-based thick clients.
 ![](img/04.JSMVC.png)
 
 ???
-Software engineering practices come to JavaScript.
+
+Google and Yahoo turn Ajax up to 11
+
+Apps like Gmail are created.
+
+Then, the rest of us start doing it.
+
+How?
+
 
 ---
 
@@ -117,11 +181,37 @@ template: cover
 
 # Anatomy of an MVC Application
 
+???
+
+For those of you who don't know
+
+MVC is a design pattern
+
+created by Alan Kay in the 70s
+
+used in iOS applications
+
+Rails made it popular with web devs
+
+and we brought various forms to the browser
+
+In general...
+
 ---
 
 # MV* in the Browser
 
 ![](img/05a1.MVC.png)
+
+???
+
+Three basic conceptual pieces
+
+Models - source of truth
+
+Views - draw UI and handle UI events
+
+Controllers - house business logic
 
 ---
 
@@ -132,11 +222,12 @@ template: cover
 
 ???
 
-Enter MV*
-Which also includes Templating, Routing, and Persistence
+Here's how they relate.
 
-JavaScript handles the creation of most, if not all, DOM
-using data retrieved from a remote API.
+Virtuous cycle
+
+But, that's not the whole picture
+
 
 ---
 
@@ -144,6 +235,9 @@ using data retrieved from a remote API.
 
 ![](img/05b.MVC.png)
 
+???
+
+You want reusable templates that your views can render
 
 ---
 
@@ -151,6 +245,9 @@ using data retrieved from a remote API.
 
 ![](img/05c.MVC.png)
 
+???
+
+And, your models may talk to an API for data
 
 ---
 
@@ -158,6 +255,9 @@ using data retrieved from a remote API.
 
 ![](img/05d.MVC.png)
 
+???
+
+Oh, and you probably want to cache some of that data locally
 
 ---
 
@@ -165,28 +265,73 @@ using data retrieved from a remote API.
 
 ![](img/05e.MVC.png)
 
+???
+
+Finally, all of that stuff will need to be
+
+swapped out
+
+or nested
+
+for internal navigation
+
+But...what was the point of all of this again?...
+
 ---
 
 # MV* in the Browser
 
 ![](img/05f.MVC.png)
 
+???
+
+Oh yeah!
+
+To render a DOM.
+
+---
+
+template: cover
+
+# mvcwtf
+
+???
+
+what have we done?
+
 ---
 
 # Shifting Responsibility
 
 ![](img/06a.Complexity.png)
+
+???
+
+Started with a simple model
+
 ---
 
 # Shifting Responsibility
 
 ![](img/06b.Complexity.png)
+
+???
+
+Then took an increasingly complicated pattern
+
 ---
 
 # Shifting Responsibility
 
 ![](img/06c.Complexity.png)
 
+???
+
+And moved it
+
+to a platform
+
+originally designed to show text
 
 ---
 
@@ -276,6 +421,12 @@ But, couldn't we move the template rendering to the second server, also?
 template: cover
 
 # An Isomorphic Stack
+
+---
+
+# bitly.com/isojs
+
+![](img/github.png)
 
 ---
 
