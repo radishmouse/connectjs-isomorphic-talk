@@ -333,120 +333,118 @@ to a platform
 
 originally designed to show text
 
----
-
-# Problem 1: Complexity
-
-![](img/06.Problem1.png)
-
-
-???
-
-* js and all assets need to download
-* then it has to grab remote data
-* takes too long for initial presentation of data
-
-# Partially solved with frameworks
+And...
 
 ---
 
-# Problem 2: Latency
+# Thick clients, slow startup
 
 ![](img/07.Problem2.png)
 
 ???
 
-# Partially solved with build tools
+js and all assets need to download
+
+then it has to grab remote data
+
+takes too long for initial presentation of data
+
+Then, back end...
 
 ---
 
-# Problem 3: Duplicated Efforts
+# Back end vs. UI
 
-![](img/08.Problem3.png)
+## Many requests
+
+```js
+$.get('/api/users', function (data) { /* ... */});
+$.get('/api/events', function (data) { /* ... */});
+$.get('/api/groups', function (data) { /* ... */});
+$.get('/api/puppies', function (data) { /* ... */});
+```
+
+## Or vague endpoints
+
+```js
+$.get('/api/all-the-things-for-dashboard', function (data) { /* ... */});
+```
 
 ???
 
-# Not really solved
+
+Do you make many requests?
+
+Or do you have your back end devs write code that is specific to your UI
+
+What about iOS or Android clients with different UI?
+
 
 ---
 template: cover
 
-# (Possible) Solutions
+# A (Possible) Solution
 
 ???
 
-## this section needs to be about the isomorphic architecture, with a diagram on the very first slide
-## The next slide needs a statement of goals.
-
-
-How do we go from where we are to where we want to be?
----
-# 1: Simplify the mental model
-
-* Frameworks for patterns and conventions
-
-* Build Tools for compiling abstraction languages
+Where do we go from here?
 
 ---
 
-# 2: Render deep links on the server
+# Isomorphic JavaScript Application Architecture
 
-* JavaScript on both browser and server
-
-* Render view layer to HTML string
-
----
-
-# 3: Divide and conquer
-
-* Secondary UI Server handles static rendering
-
-* Aggregates API calls and caches data
+![](img/10.Isomorphic.png)
 
 
 ???
 
-One of our remaining problems is that the back end knows too much about how our UI is put together.
+You add a UI server
 
-To solve this problem, we split our concerns further.
+can render any screen, any route statically
 
-We introduce a second server, specifically for aggregating the data for the UI.
+delivers HTML straight to the browser
 
-But, couldn't we move the template rendering to the second server, also?
-
-
+and it can cache data from APIs
 
 ---
 
-template: cover
+# "Isomorphic"
 
-# An Isomorphic Stack
+--
+
+* A single JavaScript application
+
+--
+
+* UI code runs in browser or Node.js
+
+--
+
+* Network code runs in browser or Node.js
+
+???
+
+Code that produces a DOM (or HTML) can run from client or server
+
+Also, any code that helps produce the DOM (populating it with data)
+
+can run from client or server.
 
 ---
+
 
 # bitly.com/isojs
 
 ![](img/github.png)
 
----
-
-# Finding common ground
-
---
-
-* JavaScript
-
---
-
-* Node/CommonJS Modules
-
---
-
-* Context-agnostic Libraries
-
 ???
 
-(context agnostic libraries that are needed to fulfill the UI)
+I've put together a demo project.
+
+Nothing fancy.
+
+Definition of "trivial" application
+
 
 ---
 
